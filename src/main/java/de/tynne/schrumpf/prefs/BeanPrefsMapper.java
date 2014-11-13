@@ -64,7 +64,7 @@ public class BeanPrefsMapper {
             // the value read from the prefs
             String prefsValue = prefs.get(key, defaultValue);
             
-            LOGGER.debug("defaultValue = {}, prefsValue = {}", defaultValue, prefsValue);
+            LOGGER.debug("defaultValue = '{}', prefsValue = '{}'", defaultValue, prefsValue);
             
             ValueExpression exp = factory.createValueExpression(context, key, Object.class);
 
@@ -73,7 +73,7 @@ public class BeanPrefsMapper {
             ValueExpression typedExp = factory.createValueExpression(context, key, oldValue.getClass());
                         
             Object convertedPrefsValue = converter.convert(prefsValue, oldValue.getClass());
-            LOGGER.debug("Mapping {} to {}, old value is {}", key, prefsValue, oldValue);
+            LOGGER.debug("Mapping '{}' to '{}', old value is '{}'. Type is {}", key, prefsValue, oldValue, oldValue.getClass().getName());
             
             typedExp.setValue(context, convertedPrefsValue);
         }
@@ -98,7 +98,7 @@ public class BeanPrefsMapper {
 
             String value = (String) exp.getValue(context);
             
-            LOGGER.debug("Mapping {} to {}", key, value);
+            LOGGER.debug("Mapping '{}' to '{}'", key, value);
             prefs.put(key, value);
         }
         try {
