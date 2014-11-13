@@ -33,12 +33,17 @@ public class BeanPrefsMapper {
     
     private BeanPrefsMapper() {
     }
+    
+    private static Preferences getPrefsFor(Object bean) {
+        Preferences prefs = Preferences.userNodeForPackage(bean.getClass());
+        return prefs;
+    }
         
     public static void mapPrefsToBean(Object bean, Properties fields) {
         Objects.requireNonNull(bean);
         
         LOGGER.debug("before prefs");
-        Preferences prefs = Preferences.userNodeForPackage(bean.getClass());
+        Preferences prefs = getPrefsFor(bean);
         try {
             prefs.sync();
         } catch (BackingStoreException ex) {
@@ -78,7 +83,8 @@ public class BeanPrefsMapper {
         Objects.requireNonNull(bean);
         
         LOGGER.debug("before prefs");
-        Preferences prefs = Preferences.userNodeForPackage(bean.getClass());
+        Preferences prefs = getPrefsFor(bean);
+
         ExpressionFactory factory = new de.odysseus.el.ExpressionFactoryImpl();
         de.odysseus.el.util.SimpleContext context = new de.odysseus.el.util.SimpleContext();
         context.setVariable(ROOT_NAME, factory.createValueExpression(bean, bean.getClass()));
