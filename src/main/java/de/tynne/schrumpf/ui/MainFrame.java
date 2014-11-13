@@ -6,8 +6,10 @@
 package de.tynne.schrumpf.ui;
 
 import de.tynne.schrumpf.prefs.BeanPrefsMapper;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,16 +30,26 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }
     
+    private Properties readPrefsMapping() {
+        LOGGER.debug("reading properties");
+
+        InputStream is = getClass().getResourceAsStream("MainFrame_prefs.properties");
+        LOGGER.debug("input stream = {}", is);
+
+        final Properties props = new Properties();
+        try {
+            props.load(is);
+        } catch (IOException ex) {
+            throw new Error(ex);
+        }
+        return props;
+    }
+    
     private void initFromPrefs() {
         try {
             LOGGER.debug("init from prefs");
             
-            InputStream is = getClass().getResourceAsStream("MainFrame_prefs.properties");
-            LOGGER.debug("input stream = {}", is);
-            
-            final Properties props = new Properties();
-            props.load(is);
-            
+            final Properties props = readPrefsMapping();
             BeanPrefsMapper.mapPrefsToBean(this, props);
         } catch (Exception ex) {
             LOGGER.error("Error while loading prefs map", ex);
@@ -75,6 +87,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile = new javax.swing.JMenu();
         jMenuItemAbout = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemSaveSettings = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItemQuit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -124,6 +138,15 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jMenuItemAbout);
         jMenuFile.add(jSeparator1);
 
+        jMenuItemSaveSettings.setText(bundle.getString("MainFrame.jMenuItemSaveSettings.text")); // NOI18N
+        jMenuItemSaveSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSaveSettingsActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemSaveSettings);
+        jMenuFile.add(jSeparator2);
+
         jMenuItemQuit.setMnemonic('x');
         jMenuItemQuit.setText(bundle.getString("MainFrame.jMenuItemQuit.text")); // NOI18N
         jMenuItemQuit.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +171,12 @@ public class MainFrame extends javax.swing.JFrame {
         AboutDialog dialog = new AboutDialog(this, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuItemAboutActionPerformed
+
+    private void jMenuItemSaveSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSaveSettingsActionPerformed
+        BeanPrefsMapper.mapBeanToPrefs(this, readPrefsMapping());
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/MainFrame"); // NOI18N
+        jTextFieldInfo.setText(bundle.getString("MainFrame.txt.prefs.saved")); // NOI18N
+    }//GEN-LAST:event_jMenuItemSaveSettingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,7 +220,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemQuit;
+    private javax.swing.JMenuItem jMenuItemSaveSettings;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTextField jTextFieldInfo;
     private de.tynne.schrumpf.ui.NamingPanel namingPanel1;
     private de.tynne.schrumpf.ui.ResizePanel resizePanel1;
