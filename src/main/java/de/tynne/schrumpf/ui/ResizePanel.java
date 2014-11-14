@@ -5,6 +5,7 @@
  */
 package de.tynne.schrumpf.ui;
 
+import de.tynne.schrumpf.business.ResizeBean;
 import javax.swing.JCheckBox;
 import javax.swing.JSpinner;
 
@@ -149,5 +150,14 @@ public class ResizePanel extends javax.swing.JPanel {
         return jSpinnerPreferredWidth;
     }
 
+    public ResizeBean toBean() {
+        ResizeBean bean = new ResizeBean();
+        bean.setChange(jCheckBoxChange.isSelected());
+        bean.setKeepAspect(jCheckBoxKeepAspect.isSelected());
+        bean.setPreferredWidth((Integer)jSpinnerPreferredWidth.getValue());
+        bean.setPreferredHeight((Integer)jSpinnerPreferredHeight.getValue());
+
+        return bean;
+    }
 
 }

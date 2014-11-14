@@ -5,6 +5,8 @@
  */
 package de.tynne.schrumpf.ui;
 
+import de.tynne.schrumpf.business.FileCallable;
+import de.tynne.schrumpf.business.ResizeBean;
 import de.tynne.schrumpf.prefs.BeanPrefsMapper;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -272,6 +274,18 @@ public class MainFrame extends javax.swing.JFrame {
                 dtde.acceptDrop(DnDConstants.ACTION_COPY);
                 List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
                 LOGGER.debug("Dropped {} files: {}", files.size(), files);
+                
+                ResizeBean resizeBean = resizePanel1.toBean();
+                
+                for (File f : files) {
+                    FileCallable callable = new FileCallable(f, resizeBean);
+                    try {
+                        callable.call();
+                    } catch (Exception ex) {
+                        ex.printStackTrace(); // TODO
+                    }
+                }
+                
             } catch (UnsupportedFlavorException ex) {
                 LOGGER.warn("No file flavor", ex);
             } catch (IOException ex) {

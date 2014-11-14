@@ -5,6 +5,8 @@
  */
 package de.tynne.schrumpf.ui;
 
+import de.tynne.schrumpf.business.FormatBean;
+
 /**
  *
  * @author Stephan Fuhrmann <stephan@tynne.de>
@@ -76,4 +78,11 @@ public class FormatPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelFileFormat;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    public FormatBean toBean() {
+        FormatBean bean = new FormatBean();
+        bean.setChange(jCheckBoxChange.isSelected());
+        bean.setFileFormatName((String)jComboBoxFileFormat.getSelectedItem());
+        return bean;
+    }
 }

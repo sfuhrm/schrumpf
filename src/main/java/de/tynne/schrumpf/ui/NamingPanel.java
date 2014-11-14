@@ -5,6 +5,7 @@
  */
 package de.tynne.schrumpf.ui;
 
+import de.tynne.schrumpf.business.NamingBean;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -209,5 +210,15 @@ public class NamingPanel extends javax.swing.JPanel {
         return jTextFieldSuffix;
     }
 
-    
+    public NamingBean toBean() {
+        NamingBean bean = new NamingBean();
+        bean.setChange(jCheckBoxChange.isSelected());
+        bean.setHasDirectory(jCheckBoxDirectory.isSelected());
+        bean.setDirectory(jTextFieldDirectory.getText());
+        bean.setHasPrefix(jCheckBoxPrefix.isSelected());
+        bean.setPrefix(jTextFieldPrefix.getText());
+        bean.setHasSuffix(jCheckBoxSuffix.isSelected());
+        bean.setSuffix(jTextFieldSuffix.getText());
+        return bean;
+    }
 }
