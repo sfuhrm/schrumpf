@@ -6,9 +6,22 @@
 package de.tynne.schrumpf.ui;
 
 import de.tynne.schrumpf.prefs.BeanPrefsMapper;
+import java.awt.Cursor;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +39,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         initFromPrefs();
+        initDragAndDrop();
         pack();
     }
     
@@ -226,4 +240,48 @@ public class MainFrame extends javax.swing.JFrame {
     private de.tynne.schrumpf.ui.NamingPanel namingPanel1;
     private de.tynne.schrumpf.ui.ResizePanel resizePanel1;
     // End of variables declaration//GEN-END:variables
+
+    private DropTarget dropTarget;
+    
+    private DropTargetListener dropTargetListener = new DropTargetListener() {
+
+        @Override
+        public void dragEnter(DropTargetDragEvent dtde) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+
+        @Override
+        public void dragOver(DropTargetDragEvent dtde) {
+        }
+
+        @Override
+        public void dropActionChanged(DropTargetDragEvent dtde) {
+        }
+
+        @Override
+        public void dragExit(DropTargetEvent dte) {
+            setCursor(Cursor.getDefaultCursor());            
+        }
+
+        @Override
+        public void drop(DropTargetDropEvent dtde) {
+            LOGGER.info("Got drop event");
+            setCursor(Cursor.getDefaultCursor());
+            Transferable transferable = dtde.getTransferable();
+            try {
+                dtde.acceptDrop(DnDConstants.ACTION_COPY);
+                List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
+                LOGGER.debug("Dropped {} files: {}", files.size(), files);
+            } catch (UnsupportedFlavorException ex) {
+                LOGGER.warn("No file flavor", ex);
+            } catch (IOException ex) {
+                LOGGER.warn("IOE", ex);
+            }
+        }
+    };
+    
+    private void initDragAndDrop() {
+        dropTarget = new DropTarget(this, dropTargetListener);
+        setDropTarget(dropTarget);
+    }
 }
