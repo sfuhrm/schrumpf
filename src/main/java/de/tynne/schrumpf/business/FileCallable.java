@@ -67,10 +67,12 @@ public class FileCallable implements Callable<FileCallable> {
     @Override
     public FileCallable call() throws Exception {
         
+        ImageReader imageReader = null;
+        ImageWriter imageWriter = null;
+        
         try (ImageInputStream imageInputStream = ImageIO.createImageInputStream(file)) {
             Iterator<ImageReader> readerIterator = ImageIO.getImageReaders(imageInputStream);
 
-            ImageReader imageReader;
             if (readerIterator.hasNext()) {
                 imageReader = readerIterator.next();
                 imageReader.setInput(imageInputStream);
@@ -81,25 +83,35 @@ public class FileCallable implements Callable<FileCallable> {
 
                 Iterator<ImageWriter> writerIterator = formatBean.getWriterFor(imageReader);
                 if (writerIterator.hasNext()) {
-                    ImageWriter imageWriter = writerIterator.next();
+                    imageWriter = writerIterator.next();
 
                     File target = namingBean.getTargetName(imageWriter, file);
                     
                     if (target.exists() && ! namingBean.isOverwrite()) {                        
-                        throw new IOException("Skipping already existing image file " + target.getAbsolutePath());
+                        throw new SkippedException("Skipping already existing image file " + target.getAbsolutePath());
                     }
                     
                     try (ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(target)) {
                         imageWriter.setOutput(imageOutputStream);
                         imageWriter.write(scaled);
+
                     }
                 } else {
                     LOGGER.warn("Found no image writer for '{}'", file.getAbsolutePath());
                     throw new IOException("No image writer for " + file.getAbsolutePath());
-                }
+                }                
             } else {
                 LOGGER.warn("Found no image reader for '{}'", file.getAbsolutePath());
                 throw new IOException("No image reader for " + file.getAbsolutePath());
+            }
+        }
+        
+        finally {
+            if (imageReader != null) {
+                imageReader.dispose();
+            }
+            if (imageWriter != null) {
+                imageWriter.dispose();
             }
         }
 
