@@ -39,6 +39,7 @@ public class NamingPanel extends javax.swing.JPanel {
         jTextFieldPrefix = new javax.swing.JTextField();
         jCheckBoxSuffix = new javax.swing.JCheckBox();
         jTextFieldSuffix = new javax.swing.JTextField();
+        jCheckBoxOverwrite = new javax.swing.JCheckBox();
         jPanelDirectory = new javax.swing.JPanel();
         jCheckBoxDirectory = new javax.swing.JCheckBox();
         jButtonChooseDirectory = new javax.swing.JButton();
@@ -100,6 +101,13 @@ public class NamingPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         add(jTextFieldSuffix, gridBagConstraints);
+
+        jCheckBoxOverwrite.setText(bundle.getString("NamingPanel.jCheckBoxOverwrite.text")); // NOI18N
+        jCheckBoxOverwrite.setToolTipText(bundle.getString("NamingPanel.jCheckBoxOverwrite.toolTipText")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(jCheckBoxOverwrite, gridBagConstraints);
 
         jPanelDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("NamingPanel.jPanelDirectory.border.title"))); // NOI18N
         jPanelDirectory.setLayout(new java.awt.GridBagLayout());
@@ -180,6 +188,7 @@ public class NamingPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButtonChooseDirectory;
     private javax.swing.JCheckBox jCheckBoxChange;
     private javax.swing.JCheckBox jCheckBoxDirectory;
+    private javax.swing.JCheckBox jCheckBoxOverwrite;
     private javax.swing.JCheckBox jCheckBoxPrefix;
     private javax.swing.JCheckBox jCheckBoxSuffix;
     private javax.swing.JLabel jLabelDirectory;
@@ -218,6 +227,10 @@ public class NamingPanel extends javax.swing.JPanel {
         return jTextFieldSuffix;
     }
 
+    public JCheckBox getjCheckBoxOverwrite() {
+        return jCheckBoxOverwrite;
+    }
+
     public NamingBean toBean() {
         NamingBean bean = new NamingBean();
         bean.setChange(jCheckBoxChange.isSelected());
@@ -227,6 +240,7 @@ public class NamingPanel extends javax.swing.JPanel {
         bean.setPrefix(jTextFieldPrefix.getText());
         bean.setHasSuffix(jCheckBoxSuffix.isSelected());
         bean.setSuffix(jTextFieldSuffix.getText());
+        bean.setOverwrite(jCheckBoxOverwrite.isSelected());
         return bean;
     }
 }

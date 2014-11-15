@@ -84,7 +84,11 @@ public class FileCallable implements Callable<FileCallable> {
                     ImageWriter imageWriter = writerIterator.next();
 
                     File target = namingBean.getTargetName(imageWriter, file);
-
+                    
+                    if (target.exists() && ! namingBean.isOverwrite()) {                        
+                        throw new IOException("Skipping already existing image file " + target.getAbsolutePath());
+                    }
+                    
                     try (ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(target)) {
                         imageWriter.setOutput(imageOutputStream);
                         imageWriter.write(scaled);

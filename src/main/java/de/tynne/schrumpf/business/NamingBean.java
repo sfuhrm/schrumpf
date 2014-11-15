@@ -26,6 +26,7 @@ public class NamingBean {
     private String suffix;
     private boolean hasSuffix;
     private String directory;
+    private boolean overwrite;
     
     public void setChange(boolean selected) {
         this.change = selected;
@@ -53,6 +54,14 @@ public class NamingBean {
 
     public void setDirectory(String text) {
         this.directory = text;
+    }
+
+    public boolean isOverwrite() {
+        return overwrite;
+    }
+
+    public void setOverwrite(boolean overwrite) {
+        this.overwrite = overwrite;
     }
     
     public File getTargetName(ImageWriter imageWriter, File inFile) {
