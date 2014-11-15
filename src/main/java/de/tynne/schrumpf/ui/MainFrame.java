@@ -327,20 +327,7 @@ public class MainFrame extends javax.swing.JFrame {
                 final List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
                 LOGGER.debug("Dropped {} files: {}", files.size(), files);
 
-                final ResizeBean resizeBean = resizePanel1.toBean();
-                final FormatBean formatBean = formatPanel1.toBean();
-                final NamingBean namingBean = namingPanel1.toBean();
-
-                Runnable r = new Runnable() {
-
-                    @Override
-                    public void run() {
-                        resizeFiles(files, resizeBean, formatBean, namingBean);
-                    }
-                };
-
-                Thread t = new Thread(r, "Resizer Thread");
-                t.start();
+                resizeFiles(files);
 
             } catch (UnsupportedFlavorException ex) {
                 LOGGER.warn("No file flavor", ex);
@@ -363,6 +350,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         return executorService;
     }
+
+    private void resizeFiles(final List<File> files) {
+        final ResizeBean resizeBean = resizePanel1.toBean();
+        final FormatBean formatBean = formatPanel1.toBean();
+        final NamingBean namingBean = namingPanel1.toBean();
+
+        Runnable r = new Runnable() {
+
+            @Override
+            public void run() {
+                resizeFiles(files, resizeBean, formatBean, namingBean);
+            }
+        };
+
+        Thread t = new Thread(r, "Resizer Thread");
+        t.start();
+    }    
 
     private void resizeFiles(List<File> files, ResizeBean resizeBean, FormatBean formatBean, NamingBean namingBean) {
 
