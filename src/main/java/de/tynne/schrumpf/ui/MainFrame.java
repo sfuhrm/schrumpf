@@ -147,6 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuItemAbout.setMnemonic('A');
         jMenuItemAbout.setText(bundle.getString("MainFrame.jMenuItemAbout.text")); // NOI18N
+        jMenuItemAbout.setToolTipText(bundle.getString("MainFrame.jMenuItemAbout.toolTipText")); // NOI18N
         jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemAboutActionPerformed(evt);
@@ -156,6 +157,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jSeparator1);
 
         jMenuItemSaveSettings.setText(bundle.getString("MainFrame.jMenuItemSaveSettings.text")); // NOI18N
+        jMenuItemSaveSettings.setToolTipText(bundle.getString("MainFrame.jMenuItemSaveSettings.toolTipText")); // NOI18N
         jMenuItemSaveSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemSaveSettingsActionPerformed(evt);
@@ -166,6 +168,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuItemQuit.setMnemonic('x');
         jMenuItemQuit.setText(bundle.getString("MainFrame.jMenuItemQuit.text")); // NOI18N
+        jMenuItemQuit.setToolTipText(bundle.getString("MainFrame.jMenuItemQuit.toolTipText")); // NOI18N
         jMenuItemQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemQuitActionPerformed(evt);
