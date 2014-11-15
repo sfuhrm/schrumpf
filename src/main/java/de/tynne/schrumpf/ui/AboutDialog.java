@@ -29,6 +29,7 @@ public class AboutDialog extends javax.swing.JDialog {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel1 = new javax.swing.JPanel();
         jLabelTitle = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
         jLabelVersion = new javax.swing.JLabel();
@@ -40,6 +41,9 @@ public class AboutDialog extends javax.swing.JDialog {
         setTitle(bundle.getString("AboutDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
         jLabelTitle.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabelTitle.setText(bundle.getString("AboutDialog.jLabelTitle.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -47,23 +51,22 @@ public class AboutDialog extends javax.swing.JDialog {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
-        getContentPane().add(jLabelTitle, gridBagConstraints);
+        jPanel1.add(jLabelTitle, gridBagConstraints);
 
         jLabelIcon.setIcon(MainFrame.getMyIcon());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        getContentPane().add(jLabelIcon, gridBagConstraints);
+        jPanel1.add(jLabelIcon, gridBagConstraints);
 
         jLabelVersion.setText(bundle.getString("AboutDialog.jLabelVersion.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        getContentPane().add(jLabelVersion, gridBagConstraints);
+        jPanel1.add(jLabelVersion, gridBagConstraints);
 
         jLabelCopyright.setText(bundle.getString("AboutDialog.jLabelCopyright.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 63);
-        getContentPane().add(jLabelCopyright, gridBagConstraints);
+        jPanel1.add(jLabelCopyright, gridBagConstraints);
 
         jButtonOk.setText(bundle.getString("AboutDialog.jButtonOk.text")); // NOI18N
         jButtonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -72,8 +75,15 @@ public class AboutDialog extends javax.swing.JDialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(6, 5, 12, 0);
-        getContentPane().add(jButtonOk, gridBagConstraints);
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        jPanel1.add(jButtonOk, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jPanel1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -130,5 +140,6 @@ public class AboutDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelIcon;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelVersion;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
