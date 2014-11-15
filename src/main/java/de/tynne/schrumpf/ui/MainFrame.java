@@ -9,6 +9,7 @@ import de.tynne.schrumpf.business.FileCallable;
 import de.tynne.schrumpf.business.FormatBean;
 import de.tynne.schrumpf.business.NamingBean;
 import de.tynne.schrumpf.business.ResizeBean;
+import de.tynne.schrumpf.business.SkippedException;
 import de.tynne.schrumpf.prefs.BeanPrefsMapper;
 import java.awt.Cursor;
 import java.awt.datatransfer.DataFlavor;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -143,7 +145,7 @@ public class MainFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         getContentPane().add(namingPanel1, gridBagConstraints);
 
-        jTextFieldInfo.setText(bundle.getString("MainFrame.jTextFieldInfo.text")); // NOI18N
+        jTextFieldInfo.setColumns(60);
         jTextFieldInfo.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -339,6 +341,7 @@ public class MainFrame extends javax.swing.JFrame {
             int i = 0;
             int resized = 0;
             int errors = 0;
+            int skipped = 0;
             boolean aborted = false;
             Map<FileCallable, Future<FileCallable>> map = new HashMap<>();
             List<FileCallable> submitted = new ArrayList<>();
@@ -365,7 +368,19 @@ public class MainFrame extends javax.swing.JFrame {
                     }
 
                     resized++;
-                } catch (Exception ex) {
+                } 
+                catch (ExecutionException ex) {
+                    Throwable cause = ex.getCause();
+                    
+                    if (cause instanceof SkippedException) {
+                        skipped++;
+                    } else {
+                        LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), cause);
+                        cause.printStackTrace(); // TODO
+                        errors++;
+                    }
+                }
+                catch (Exception ex) {
                     LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), ex);
                     ex.printStackTrace(); // TODO
                     errors++;
@@ -382,10 +397,10 @@ public class MainFrame extends javax.swing.JFrame {
             if (aborted) {
                 showInfo("Info.result.aborted");
             } else {
-                if (errors == 0) {
+                if (errors == 0 && skipped == 0) {
                     showInfo("Info.result.format", resized);
                 } else {
-                    showInfo("Info.result-errors.format", resized, errors);
+                    showInfo("Info.result-errors.format", resized, errors, skipped);
                 }
             }
             
@@ -403,10 +418,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void showInfo(String infoKey, Object... args) {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/Info"); // NOI18N
         String format = bundle.getString(infoKey);
-        showInfoTextLater(String.format(format, args));
-    }
-    
-    private void showInfoTextLater(final String info) {
+        final String info = String.format(format, args);
         LOGGER.info(info);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -415,7 +427,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-        
+            
     private void initInternal() {
         showInfo("Info.ready");
     }

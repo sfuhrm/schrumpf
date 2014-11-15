@@ -117,9 +117,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldInfo">
       <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="de/tynne/schrumpf/ui/MainFrame.properties" key="MainFrame.jTextFieldInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-        </Property>
+        <Property name="columns" type="int" value="60"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Constraints>
