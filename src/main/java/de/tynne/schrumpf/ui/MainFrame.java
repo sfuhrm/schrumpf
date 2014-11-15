@@ -60,7 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
         initInternal();
         pack();
     }
-    
+
     private Properties readPrefsMapping() {
         LOGGER.debug("reading properties");
 
@@ -75,11 +75,11 @@ public class MainFrame extends javax.swing.JFrame {
         }
         return props;
     }
-    
+
     private void initFromPrefs() {
         try {
             LOGGER.debug("init from prefs");
-            
+
             final Properties props = readPrefsMapping();
             BeanPrefsMapper.mapPrefsToBean(this, props);
         } catch (Exception ex) {
@@ -296,7 +296,7 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private DropTarget dropTarget;
-    
+
     private DropTargetListener dropTargetListener = new DropTargetListener() {
 
         @Override
@@ -314,7 +314,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void dragExit(DropTargetEvent dte) {
-            setCursor(Cursor.getDefaultCursor());            
+            setCursor(Cursor.getDefaultCursor());
         }
 
         @Override
@@ -326,131 +326,129 @@ public class MainFrame extends javax.swing.JFrame {
                 dtde.acceptDrop(DnDConstants.ACTION_COPY);
                 final List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
                 LOGGER.debug("Dropped {} files: {}", files.size(), files);
-                
+
                 final ResizeBean resizeBean = resizePanel1.toBean();
                 final FormatBean formatBean = formatPanel1.toBean();
                 final NamingBean namingBean = namingPanel1.toBean();
-                
+
                 Runnable r = new Runnable() {
 
                     @Override
-                    public void run() {                        
+                    public void run() {
                         resizeFiles(files, resizeBean, formatBean, namingBean);
                     }
                 };
-                
+
                 Thread t = new Thread(r, "Resizer Thread");
                 t.start();
-                
+
             } catch (UnsupportedFlavorException ex) {
                 LOGGER.warn("No file flavor", ex);
             } catch (IOException ex) {
                 LOGGER.warn("IOE", ex);
             }
         }
-        
-        private ExecutorService newExecutorService() {
-            int procs = Runtime.getRuntime().availableProcessors();
-            final ExecutorService executorService = Executors.newFixedThreadPool(procs);
-            
-            LOGGER.info("Created executor service {} with {} threads", executorService.getClass().getName(), procs);
-            
-            return executorService;
-        }
-
-        private void resizeFiles(List<File> files, ResizeBean resizeBean, FormatBean formatBean, NamingBean namingBean) {
-            
-            final ExecutorService executorService = newExecutorService();
-            
-            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/ProgressMonitor"); // NOI18N
-            String message = bundle.getString("ProgressMonitor.message"); // NOI18N
-            String noteInitial = bundle.getString("ProgressMonitor.note.initializing"); // NOI18N
-            String noteEnd = bundle.getString("ProgressMonitor.note.done"); // NOI18N
-            String noteFormat = bundle.getString("ProgressMonitor.note.format.image"); // NOI18N
-            
-            ProgressMonitor progressMonitor = new ProgressMonitor(MainFrame.this, message, noteInitial, 0, files.size());
-            progressMonitor.setMillisToPopup(0);
-            progressMonitor.setMillisToDecideToPopup(0);
-            
-            showInfo("Info.result.busy", files.size());
-            
-            int i = 0;
-            int resized = 0;
-            int errors = 0;
-            int skipped = 0;
-            boolean aborted = false;
-            Map<FileCallable, Future<FileCallable>> map = new HashMap<>();
-            List<FileCallable> submitted = new ArrayList<>();
-            for (File f : files) {
-                FileCallable callable = new FileCallable(f, resizeBean, formatBean, namingBean);
-                Future<FileCallable> future = executorService.submit(callable);
-                map.put(callable, future);
-                submitted.add(callable);
-            }
-            
-            for (FileCallable callable : submitted) {
-                try {
-                    progressMonitor.setProgress(i);
-                    progressMonitor.setNote(String.format(noteFormat, i * 100 / files.size(), callable.getFile().getName()));
-                    
-                    map.get(callable).get();
-                    
-                    if (progressMonitor.isCanceled()) {
-                        aborted = true;
-                        for (Future<?> f : map.values()) {
-                            f.cancel(true);
-                        }
-                        break;
-                    }
-
-                    resized++;
-                } 
-                catch (ExecutionException ex) {
-                    Throwable cause = ex.getCause();
-                    
-                    if (cause instanceof SkippedException) {
-                        skipped++;
-                    } else {
-                        LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), cause);
-                        cause.printStackTrace(); // TODO
-                        errors++;
-                    }
-                }
-                catch (Exception ex) {
-                    LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), ex);
-                    ex.printStackTrace(); // TODO
-                    errors++;
-                }
-                i++;
-            }
-            
-            executorService.shutdown();
-            try {
-                executorService.awaitTermination(1, TimeUnit.DAYS);
-            } catch (InterruptedException ex) {
-            }
-               
-            if (aborted) {
-                showInfo("Info.result.aborted");
-            } else {
-                if (errors == 0 && skipped == 0) {
-                    showInfo("Info.result.format", resized);
-                } else {
-                    showInfo("Info.result-errors.format", resized, errors, skipped);
-                }
-            }
-            
-            progressMonitor.setProgress(i);
-            progressMonitor.setNote(noteEnd);
-            progressMonitor.close();
-        }
     };
-    
+
     private void initDragAndDrop() {
         dropTarget = new DropTarget(this, dropTargetListener);
         setDropTarget(dropTarget);
     }
-    
+
+    private ExecutorService newExecutorService() {
+        int procs = Runtime.getRuntime().availableProcessors();
+        final ExecutorService executorService = Executors.newFixedThreadPool(procs);
+
+        LOGGER.info("Created executor service {} with {} threads", executorService.getClass().getName(), procs);
+
+        return executorService;
+    }
+
+    private void resizeFiles(List<File> files, ResizeBean resizeBean, FormatBean formatBean, NamingBean namingBean) {
+
+        final ExecutorService executorService = newExecutorService();
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/ProgressMonitor"); // NOI18N
+        String message = bundle.getString("ProgressMonitor.message"); // NOI18N
+        String noteInitial = bundle.getString("ProgressMonitor.note.initializing"); // NOI18N
+        String noteEnd = bundle.getString("ProgressMonitor.note.done"); // NOI18N
+        String noteFormat = bundle.getString("ProgressMonitor.note.format.image"); // NOI18N
+
+        ProgressMonitor progressMonitor = new ProgressMonitor(MainFrame.this, message, noteInitial, 0, files.size());
+        progressMonitor.setMillisToPopup(0);
+        progressMonitor.setMillisToDecideToPopup(0);
+
+        showInfo("Info.result.busy", files.size());
+
+        int i = 0;
+        int resized = 0;
+        int errors = 0;
+        int skipped = 0;
+        boolean aborted = false;
+        Map<FileCallable, Future<FileCallable>> map = new HashMap<>();
+        List<FileCallable> submitted = new ArrayList<>();
+        for (File f : files) {
+            FileCallable callable = new FileCallable(f, resizeBean, formatBean, namingBean);
+            Future<FileCallable> future = executorService.submit(callable);
+            map.put(callable, future);
+            submitted.add(callable);
+        }
+
+        for (FileCallable callable : submitted) {
+            try {
+                progressMonitor.setProgress(i);
+                progressMonitor.setNote(String.format(noteFormat, i * 100 / files.size(), callable.getFile().getName()));
+
+                map.get(callable).get();
+
+                if (progressMonitor.isCanceled()) {
+                    aborted = true;
+                    for (Future<?> f : map.values()) {
+                        f.cancel(true);
+                    }
+                    break;
+                }
+
+                resized++;
+            } catch (ExecutionException ex) {
+                Throwable cause = ex.getCause();
+
+                if (cause instanceof SkippedException) {
+                    skipped++;
+                } else {
+                    LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), cause);
+                    cause.printStackTrace(); // TODO
+                    errors++;
+                }
+            } catch (Exception ex) {
+                LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), ex);
+                ex.printStackTrace(); // TODO
+                errors++;
+            }
+            i++;
+        }
+
+        executorService.shutdown();
+        try {
+            executorService.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException ex) {
+        }
+
+        if (aborted) {
+            showInfo("Info.result.aborted");
+        } else {
+            if (errors == 0 && skipped == 0) {
+                showInfo("Info.result.format", resized);
+            } else {
+                showInfo("Info.result-errors.format", resized, errors, skipped);
+            }
+        }
+
+        progressMonitor.setProgress(i);
+        progressMonitor.setNote(noteEnd);
+        progressMonitor.close();
+    }
+
     private void showInfo(String infoKey, Object... args) {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/Info"); // NOI18N
         String format = bundle.getString(infoKey);
@@ -463,29 +461,30 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-            
+
     private void initInternal() {
         showInfo("Info.ready");
     }
-    
+
     static Image getMyIconImage() {
         ImageIcon imageIcon = getMyIcon();
         return imageIcon != null ? imageIcon.getImage() : null;
     }
-    
+
     static ImageIcon getMyIcon() {
         try {
             InputStream is = MainFrame.class.getResourceAsStream("Logo-Entwurf-80x60.png");
-            if (is == null)
+            if (is == null) {
                 return null;
+            }
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            
+
             byte buff[] = new byte[1024];
             int len;
             while ((len = is.read(buff)) > 0) {
                 baos.write(buff, 0, len);
             }
-            
+
             ImageIcon icon = new ImageIcon(baos.toByteArray());
             return icon;
         } catch (IOException ex) {
