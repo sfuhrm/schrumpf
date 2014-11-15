@@ -32,7 +32,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
@@ -337,6 +336,8 @@ public class MainFrame extends javax.swing.JFrame {
             
             int i = 0;
             int resized = 0;
+            int errors = 0;
+            boolean aborted = false;
             Map<FileCallable, Future<FileCallable>> map = new HashMap<>();
             List<FileCallable> submitted = new ArrayList<>();
             for (File f : files) {
@@ -354,6 +355,7 @@ public class MainFrame extends javax.swing.JFrame {
                     map.get(callable).get();
                     
                     if (progressMonitor.isCanceled()) {
+                        aborted = true;
                         for (Future<?> f : map.values()) {
                             f.cancel(true);
                         }
@@ -364,6 +366,7 @@ public class MainFrame extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), ex);
                     ex.printStackTrace(); // TODO
+                    errors++;
                 }
                 i++;
             }
@@ -373,8 +376,16 @@ public class MainFrame extends javax.swing.JFrame {
                 executorService.awaitTermination(1, TimeUnit.DAYS);
             } catch (InterruptedException ex) {
             }
-                        
-            showInfoResult(resized);
+               
+            if (aborted) {
+                showInfo("Info.result.aborted");
+            } else {
+                if (errors == 0) {
+                    showInfo("Info.result.format", resized);
+                } else {
+                    showInfo("Info.result-errors.format", resized, errors);
+                }
+            }
             
             progressMonitor.setProgress(i);
             progressMonitor.setNote(noteEnd);
@@ -387,16 +398,12 @@ public class MainFrame extends javax.swing.JFrame {
         setDropTarget(dropTarget);
     }
     
-    private void showInfoReady() {
+    private void showInfo(String infoKey, Object... args) {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/Info"); // NOI18N
-        showInfoTextLater(bundle.getString("Info.ready"));
+        String format = bundle.getString(infoKey);
+        showInfoTextLater(String.format(format, args));
     }
-
-    private void showInfoResult(int resizedImages) {
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/Info"); // NOI18N
-        showInfoTextLater(String.format(bundle.getString("Info.result.format"), resizedImages));
-    }
-
+    
     private void showInfoTextLater(final String info) {
         LOGGER.info(info);
         SwingUtilities.invokeLater(new Runnable() {
@@ -408,6 +415,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
         
     private void initInternal() {
-        showInfoReady();
+        showInfo("Info.ready");
     }
 }
