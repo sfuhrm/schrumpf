@@ -7,6 +7,7 @@ package de.tynne.schrumpf.business;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -66,36 +67,38 @@ public class FileCallable implements Callable<FileCallable> {
     @Override
     public FileCallable call() throws Exception {
         
-        ImageInputStream imageInputStream = ImageIO.createImageInputStream(file);
-        Iterator<ImageReader> readerIterator = ImageIO.getImageReaders(imageInputStream);
-        
-        ImageReader imageReader;
-        if (readerIterator.hasNext()) {
-            imageReader = readerIterator.next();
-            imageReader.setInput(imageInputStream);
-            int numImages = imageReader.getNumImages(true);
-            LOGGER.debug("Found image reader for format {}, number of images {}", imageReader.getFormatName(), numImages);
-            BufferedImage image = imageReader.read(0);            
-            BufferedImage scaled = resizeBean.scaleImage(image);
+        try (ImageInputStream imageInputStream = ImageIO.createImageInputStream(file)) {
+            Iterator<ImageReader> readerIterator = ImageIO.getImageReaders(imageInputStream);
 
-            Iterator<ImageWriter> writerIterator = formatBean.getWriterFor(imageReader);
-            if (writerIterator.hasNext()) {
-                ImageWriter imageWriter = writerIterator.next();
-                
-                File target = namingBean.getTargetName(imageWriter, file);
-                
-                ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(target);
-                imageWriter.setOutput(imageOutputStream);
-                imageWriter.write(scaled);
+            ImageReader imageReader;
+            if (readerIterator.hasNext()) {
+                imageReader = readerIterator.next();
+                imageReader.setInput(imageInputStream);
+                int numImages = imageReader.getNumImages(true);
+                LOGGER.debug("Found image reader for format {}, number of images {}", imageReader.getFormatName(), numImages);
+                BufferedImage image = imageReader.read(0);
+                BufferedImage scaled = resizeBean.scaleImage(image);
+
+                Iterator<ImageWriter> writerIterator = formatBean.getWriterFor(imageReader);
+                if (writerIterator.hasNext()) {
+                    ImageWriter imageWriter = writerIterator.next();
+
+                    File target = namingBean.getTargetName(imageWriter, file);
+
+                    try (ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(target)) {
+                        imageWriter.setOutput(imageOutputStream);
+                        imageWriter.write(scaled);
+                    }
+                } else {
+                    LOGGER.warn("Found no image writer for '{}'", file.getAbsolutePath());
+                    throw new IOException("No image writer for " + file.getAbsolutePath());
+                }
             } else {
-                LOGGER.warn("Found no image writer for '{}'", file.getAbsolutePath());
+                LOGGER.warn("Found no image reader for '{}'", file.getAbsolutePath());
+                throw new IOException("No image reader for " + file.getAbsolutePath());
             }
-        } else {
-            LOGGER.warn("Found no image reader for '{}'", file.getAbsolutePath());
         }
-        
-        // TODO dispose and close stuff
-        
+
         return this;
     }
 }
