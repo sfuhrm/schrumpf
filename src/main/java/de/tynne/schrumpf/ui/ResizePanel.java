@@ -64,6 +64,7 @@ public class ResizePanel extends javax.swing.JPanel {
         jLabelPreferredWidth.setName("jLabelPreferredWidth"); // NOI18N
         add(jLabelPreferredWidth, new java.awt.GridBagConstraints());
 
+        jSpinnerPreferredWidth.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(9999), Integer.valueOf(0), null, Integer.valueOf(1)));
         jSpinnerPreferredWidth.setToolTipText(bundle.getString("ResizePanel.jSpinnerPreferredWidth.toolTipText")); // NOI18N
         jSpinnerPreferredWidth.setName("jSpinnerPreferredWidth"); // NOI18N
 
@@ -74,12 +75,14 @@ public class ResizePanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         add(jSpinnerPreferredWidth, gridBagConstraints);
 
         jLabelPreferredHeight.setText(bundle.getString("ResizePanel.jLabelPreferredHeight.text")); // NOI18N
         jLabelPreferredHeight.setName("jLabelPreferredHeight"); // NOI18N
         add(jLabelPreferredHeight, new java.awt.GridBagConstraints());
 
+        jSpinnerPreferredHeight.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(9999), Integer.valueOf(0), null, Integer.valueOf(1)));
         jSpinnerPreferredHeight.setToolTipText(bundle.getString("ResizePanel.jSpinnerPreferredHeight.toolTipText")); // NOI18N
         jSpinnerPreferredHeight.setName("jSpinnerPreferredHeight"); // NOI18N
 
@@ -90,6 +93,7 @@ public class ResizePanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         add(jSpinnerPreferredHeight, gridBagConstraints);
 
         jLabelPresets.setText(bundle.getString("ResizePanel.jLabelPresets.text")); // NOI18N
