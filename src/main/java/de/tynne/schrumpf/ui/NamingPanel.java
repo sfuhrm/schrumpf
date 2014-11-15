@@ -50,12 +50,14 @@ public class NamingPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         jCheckBoxChange.setText(bundle.getString("NamingPanel.jCheckBoxChange.text")); // NOI18N
+        jCheckBoxChange.setToolTipText(bundle.getString("NamingPanel.jCheckBoxChange.toolTipText")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         add(jCheckBoxChange, gridBagConstraints);
 
         jCheckBoxPrefix.setText(bundle.getString("NamingPanel.jCheckBoxPrefix.text")); // NOI18N
+        jCheckBoxPrefix.setToolTipText(bundle.getString("NamingPanel.jCheckBoxPrefix.toolTipText")); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jCheckBoxPrefix, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -68,6 +70,7 @@ public class NamingPanel extends javax.swing.JPanel {
         add(jCheckBoxPrefix, new java.awt.GridBagConstraints());
 
         jTextFieldPrefix.setText(bundle.getString("NamingPanel.jTextFieldPrefix.text")); // NOI18N
+        jTextFieldPrefix.setToolTipText(bundle.getString("NamingPanel.jTextFieldPrefix.toolTipText")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxPrefix, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jTextFieldPrefix, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -79,6 +82,7 @@ public class NamingPanel extends javax.swing.JPanel {
         add(jTextFieldPrefix, gridBagConstraints);
 
         jCheckBoxSuffix.setText(bundle.getString("NamingPanel.jCheckBoxSuffix.text")); // NOI18N
+        jCheckBoxSuffix.setToolTipText(bundle.getString("NamingPanel.jCheckBoxSuffix.toolTipText")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jCheckBoxSuffix, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -86,6 +90,7 @@ public class NamingPanel extends javax.swing.JPanel {
         add(jCheckBoxSuffix, new java.awt.GridBagConstraints());
 
         jTextFieldSuffix.setText(bundle.getString("NamingPanel.jTextFieldSuffix.text")); // NOI18N
+        jTextFieldSuffix.setToolTipText(bundle.getString("NamingPanel.jTextFieldSuffix.toolTipText")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxSuffix, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jTextFieldSuffix, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -100,11 +105,13 @@ public class NamingPanel extends javax.swing.JPanel {
         jPanelDirectory.setLayout(new java.awt.GridBagLayout());
 
         jCheckBoxDirectory.setText(bundle.getString("NamingPanel.jCheckBoxDirectory.text")); // NOI18N
+        jCheckBoxDirectory.setToolTipText(bundle.getString("NamingPanel.jCheckBoxDirectory.toolTipText")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         jPanelDirectory.add(jCheckBoxDirectory, gridBagConstraints);
 
         jButtonChooseDirectory.setText(bundle.getString("NamingPanel.jButtonChooseDirectory.text")); // NOI18N
+        jButtonChooseDirectory.setToolTipText(bundle.getString("NamingPanel.jButtonChooseDirectory.toolTipText")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxDirectory, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jButtonChooseDirectory, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -125,6 +132,7 @@ public class NamingPanel extends javax.swing.JPanel {
         jPanelDirectory.add(jLabelDirectory, gridBagConstraints);
 
         jTextFieldDirectory.setText(bundle.getString("NamingPanel.jTextFieldDirectory.text")); // NOI18N
+        jTextFieldDirectory.setToolTipText(bundle.getString("NamingPanel.jTextFieldDirectory.toolTipText")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxDirectory, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jTextFieldDirectory, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
