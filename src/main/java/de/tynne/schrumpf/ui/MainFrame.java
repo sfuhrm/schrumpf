@@ -36,8 +36,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
