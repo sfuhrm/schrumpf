@@ -188,6 +188,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jSeparator1);
 
         jMenuItemResetSettings.setText(bundle.getString("MainFrame.jMenuItemResetSettings.text")); // NOI18N
+        jMenuItemResetSettings.setToolTipText(bundle.getString("MainFrame.jMenuItemResetSettings.toolTipText")); // NOI18N
         jMenuItemResetSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemResetSettingsActionPerformed(evt);
@@ -196,6 +197,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jMenuItemResetSettings);
 
         jMenuItemReloadSettings.setText(bundle.getString("MainFrame.jMenuItemReloadSettings.text")); // NOI18N
+        jMenuItemReloadSettings.setToolTipText(bundle.getString("MainFrame.jMenuItemReloadSettings.toolTipText")); // NOI18N
         jMenuItemReloadSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemReloadSettingsActionPerformed(evt);
