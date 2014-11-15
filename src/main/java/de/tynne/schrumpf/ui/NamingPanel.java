@@ -154,6 +154,7 @@ public class NamingPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
         jPanelDirectory.add(jTextFieldDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
