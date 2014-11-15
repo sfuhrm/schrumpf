@@ -63,11 +63,6 @@ public class NamingPanel extends javax.swing.JPanel {
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jCheckBoxPrefix, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jCheckBoxPrefix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxPrefixActionPerformed(evt);
-            }
-        });
         add(jCheckBoxPrefix, new java.awt.GridBagConstraints());
 
         jTextFieldPrefix.setText(bundle.getString("NamingPanel.jTextFieldPrefix.text")); // NOI18N
@@ -145,11 +140,6 @@ public class NamingPanel extends javax.swing.JPanel {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxDirectory, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jTextFieldDirectory, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jTextFieldDirectory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldDirectoryActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -165,14 +155,6 @@ public class NamingPanel extends javax.swing.JPanel {
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jCheckBoxPrefixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPrefixActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBoxPrefixActionPerformed
-
-    private void jTextFieldDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDirectoryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDirectoryActionPerformed
 
     private void jButtonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseDirectoryActionPerformed
         JFileChooser fileChooser = new JFileChooser();
