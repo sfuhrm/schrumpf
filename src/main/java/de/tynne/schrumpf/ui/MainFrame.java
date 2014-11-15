@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
@@ -117,6 +119,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemAbout = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemResize = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItemResetSettings = new javax.swing.JMenuItem();
         jMenuItemReloadSettings = new javax.swing.JMenuItem();
@@ -171,6 +175,16 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenuFile.add(jMenuItemAbout);
+        jMenuFile.add(jSeparator3);
+
+        jMenuItemResize.setText(bundle.getString("MainFrame.jMenuItemResize.text")); // NOI18N
+        jMenuItemResize.setToolTipText(bundle.getString("MainFrame.jMenuItemResize.toolTipText")); // NOI18N
+        jMenuItemResize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemResizeActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemResize);
         jMenuFile.add(jSeparator1);
 
         jMenuItemResetSettings.setText(bundle.getString("MainFrame.jMenuItemResetSettings.text")); // NOI18N
@@ -243,6 +257,16 @@ public class MainFrame extends javax.swing.JFrame {
         jTextFieldInfo.setText(bundle.getString("MainFrame.txt.prefs.reset")); // NOI18N
     }//GEN-LAST:event_jMenuItemResetSettingsActionPerformed
 
+    private void jMenuItemResizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemResizeActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDragEnabled(true);
+        fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            resizeFiles(Arrays.asList(fileChooser.getSelectedFiles()));
+        }    }//GEN-LAST:event_jMenuItemResizeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -287,9 +311,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemQuit;
     private javax.swing.JMenuItem jMenuItemReloadSettings;
     private javax.swing.JMenuItem jMenuItemResetSettings;
+    private javax.swing.JMenuItem jMenuItemResize;
     private javax.swing.JMenuItem jMenuItemSaveSettings;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTextField jTextFieldInfo;
     private de.tynne.schrumpf.ui.NamingPanel namingPanel1;
     private de.tynne.schrumpf.ui.ResizePanel resizePanel1;
