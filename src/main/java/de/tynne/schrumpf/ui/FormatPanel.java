@@ -45,7 +45,7 @@ public class FormatPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         add(jCheckBoxChange, gridBagConstraints);
 
         String formatNames[] = getFormatNames();
