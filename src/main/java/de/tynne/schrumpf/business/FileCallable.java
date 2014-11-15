@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * Resizes a single image.
  * @author fury
  */
-public class FileCallable implements Callable<Object> {
+public class FileCallable implements Callable<FileCallable> {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(FileCallable.class);
     private final File file;
@@ -37,8 +37,34 @@ public class FileCallable implements Callable<Object> {
         this.namingBean = Objects.requireNonNull(namingBean);
     }
 
+    public File getFile() {
+        return file;
+    }
+
     @Override
-    public Object call() throws Exception {
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.file);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FileCallable other = (FileCallable) obj;
+        if (!Objects.equals(this.file, other.file)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public FileCallable call() throws Exception {
         
         ImageInputStream imageInputStream = ImageIO.createImageInputStream(file);
         Iterator<ImageReader> readerIterator = ImageIO.getImageReaders(imageInputStream);
@@ -70,6 +96,6 @@ public class FileCallable implements Callable<Object> {
         
         // TODO dispose and close stuff
         
-        return null;
+        return this;
     }
 }

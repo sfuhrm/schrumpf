@@ -23,8 +23,16 @@ import java.awt.dnd.DropTargetListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
@@ -303,8 +311,19 @@ public class MainFrame extends javax.swing.JFrame {
                 LOGGER.warn("IOE", ex);
             }
         }
+        
+        private ExecutorService newExecutorService() {
+            int procs = Runtime.getRuntime().availableProcessors();
+            final ExecutorService executorService = Executors.newFixedThreadPool(procs);
+            
+            LOGGER.info("Created executor service {} with {} threads", executorService.getClass().getName(), procs);
+            
+            return executorService;
+        }
 
         private void resizeFiles(List<File> files, ResizeBean resizeBean, FormatBean formatBean, NamingBean namingBean) {
+            
+            final ExecutorService executorService = newExecutorService();
             
             java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/ProgressMonitor"); // NOI18N
             String message = bundle.getString("ProgressMonitor.message"); // NOI18N
@@ -318,23 +337,43 @@ public class MainFrame extends javax.swing.JFrame {
             
             int i = 0;
             int resized = 0;
+            Map<FileCallable, Future<FileCallable>> map = new HashMap<>();
+            List<FileCallable> submitted = new ArrayList<>();
             for (File f : files) {
                 FileCallable callable = new FileCallable(f, resizeBean, formatBean, namingBean);
+                Future<FileCallable> future = executorService.submit(callable);
+                map.put(callable, future);
+                submitted.add(callable);
+            }
+            
+            for (FileCallable callable : submitted) {
                 try {
                     progressMonitor.setProgress(i);
-                    progressMonitor.setNote(String.format(noteFormat, i * 100 / files.size(), f.getName()));
-                    if (progressMonitor.isCanceled())
+                    progressMonitor.setNote(String.format(noteFormat, i * 100 / files.size(), callable.getFile().getName()));
+                    
+                    map.get(callable).get();
+                    
+                    if (progressMonitor.isCanceled()) {
+                        for (Future<?> f : map.values()) {
+                            f.cancel(true);
+                        }
                         break;
-             
-                    callable.call();
+                    }
+
                     resized++;
                 } catch (Exception ex) {
-                    LOGGER.error("Error in "+f.getAbsolutePath(), ex);
+                    LOGGER.error("Error in " + callable.getFile().getAbsolutePath(), ex);
                     ex.printStackTrace(); // TODO
                 }
                 i++;
             }
             
+            executorService.shutdown();
+            try {
+                executorService.awaitTermination(1, TimeUnit.DAYS);
+            } catch (InterruptedException ex) {
+            }
+                        
             showInfoResult(resized);
             
             progressMonitor.setProgress(i);
