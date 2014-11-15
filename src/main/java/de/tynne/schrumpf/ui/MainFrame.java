@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
+import javax.swing.ProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -274,27 +275,64 @@ public class MainFrame extends javax.swing.JFrame {
             Transferable transferable = dtde.getTransferable();
             try {
                 dtde.acceptDrop(DnDConstants.ACTION_COPY);
-                List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
+                final List<File> files = (List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
                 LOGGER.debug("Dropped {} files: {}", files.size(), files);
                 
-                ResizeBean resizeBean = resizePanel1.toBean();
-                FormatBean formatBean = formatPanel1.toBean();
-                NamingBean namingBean = namingPanel1.toBean();
+                final ResizeBean resizeBean = resizePanel1.toBean();
+                final FormatBean formatBean = formatPanel1.toBean();
+                final NamingBean namingBean = namingPanel1.toBean();
                 
-                for (File f : files) {
-                    FileCallable callable = new FileCallable(f, resizeBean, formatBean, namingBean);
-                    try {
-                        callable.call();
-                    } catch (Exception ex) {
-                        ex.printStackTrace(); // TODO
+                Runnable r = new Runnable() {
+
+                    @Override
+                    public void run() {                        
+                        resizeFiles(files, resizeBean, formatBean, namingBean);
                     }
-                }
+                };
+                
+                Thread t = new Thread(r, "Resizer Thread");
+                t.start();
                 
             } catch (UnsupportedFlavorException ex) {
                 LOGGER.warn("No file flavor", ex);
             } catch (IOException ex) {
                 LOGGER.warn("IOE", ex);
             }
+        }
+
+        private void resizeFiles(List<File> files, ResizeBean resizeBean, FormatBean formatBean, NamingBean namingBean) {
+            
+            java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/ProgressMonitor"); // NOI18N
+            String message = bundle.getString("ProgressMonitor.message"); // NOI18N
+            String noteInitial = bundle.getString("ProgressMonitor.note.initializing"); // NOI18N
+            String noteEnd = bundle.getString("ProgressMonitor.note.done"); // NOI18N
+            String noteFormat = bundle.getString("ProgressMonitor.note.format.image"); // NOI18N
+            
+            ProgressMonitor progressMonitor = new ProgressMonitor(MainFrame.this, message, noteInitial, 0, files.size());
+            progressMonitor.setMillisToPopup(1);
+            progressMonitor.setMillisToDecideToPopup(1);
+            
+            int i = 0;
+            int resized = 0;
+            for (File f : files) {
+                FileCallable callable = new FileCallable(f, resizeBean, formatBean, namingBean);
+                try {
+                    progressMonitor.setProgress(i);
+                    progressMonitor.setNote(String.format(noteFormat, i * 100 / files.size(), f.getName()));
+                    if (progressMonitor.isCanceled())
+                        break;
+             
+                    callable.call();
+                    resized++;
+                } catch (Exception ex) {
+                    ex.printStackTrace(); // TODO
+                }
+                i++;
+            }
+            
+            progressMonitor.setProgress(i);
+            progressMonitor.setNote(noteEnd);
+            progressMonitor.close();
         }
     };
     
