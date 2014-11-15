@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.ProgressMonitor;
+import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         initFromPrefs();
         initDragAndDrop();
+        initInternal();
         pack();
     }
     
@@ -327,10 +329,13 @@ public class MainFrame extends javax.swing.JFrame {
                     callable.call();
                     resized++;
                 } catch (Exception ex) {
+                    LOGGER.error("Error in "+f.getAbsolutePath(), ex);
                     ex.printStackTrace(); // TODO
                 }
                 i++;
             }
+            
+            showInfoResult(resized);
             
             progressMonitor.setProgress(i);
             progressMonitor.setNote(noteEnd);
@@ -341,5 +346,29 @@ public class MainFrame extends javax.swing.JFrame {
     private void initDragAndDrop() {
         dropTarget = new DropTarget(this, dropTargetListener);
         setDropTarget(dropTarget);
+    }
+    
+    private void showInfoReady() {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/Info"); // NOI18N
+        showInfoTextLater(bundle.getString("Info.ready"));
+    }
+
+    private void showInfoResult(int resizedImages) {
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/Info"); // NOI18N
+        showInfoTextLater(String.format(bundle.getString("Info.result.format"), resizedImages));
+    }
+
+    private void showInfoTextLater(final String info) {
+        LOGGER.info(info);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                jTextFieldInfo.setText(info);
+            }
+        });
+    }
+        
+    private void initInternal() {
+        showInfoReady();
     }
 }

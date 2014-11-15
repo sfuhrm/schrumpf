@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Resizes a single image.
  * @author fury
  */
 public class FileCallable implements Callable<Object> {
