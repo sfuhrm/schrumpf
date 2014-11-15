@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
 import javax.swing.ProgressMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
