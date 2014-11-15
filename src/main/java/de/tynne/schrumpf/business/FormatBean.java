@@ -5,7 +5,6 @@
  */
 package de.tynne.schrumpf.business;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import javax.imageio.ImageIO;
