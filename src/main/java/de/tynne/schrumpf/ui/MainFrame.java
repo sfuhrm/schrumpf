@@ -331,8 +331,10 @@ public class MainFrame extends javax.swing.JFrame {
             String noteFormat = bundle.getString("ProgressMonitor.note.format.image"); // NOI18N
             
             ProgressMonitor progressMonitor = new ProgressMonitor(MainFrame.this, message, noteInitial, 0, files.size());
-            progressMonitor.setMillisToPopup(1);
-            progressMonitor.setMillisToDecideToPopup(1);
+            progressMonitor.setMillisToPopup(0);
+            progressMonitor.setMillisToDecideToPopup(0);
+            
+            showInfo("Info.result.busy", files.size());
             
             int i = 0;
             int resized = 0;
