@@ -6,6 +6,7 @@
 package de.tynne.schrumpf.ui;
 
 import de.tynne.schrumpf.business.FormatBean;
+import java.util.TreeSet;
 
 /**
  *
@@ -47,7 +48,7 @@ public class FormatPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         add(jCheckBoxChange, gridBagConstraints);
 
-        String formatNames[] = javax.imageio.ImageIO.getWriterFormatNames();
+        String formatNames[] = getFormatNames();
         jComboBoxFileFormat.setModel(new javax.swing.DefaultComboBoxModel(formatNames));
         jComboBoxFileFormat.setToolTipText(bundle.getString("FormatPanel.jComboBoxFileFormat.toolTipText")); // NOI18N
 
@@ -84,5 +85,13 @@ public class FormatPanel extends javax.swing.JPanel {
         bean.setChange(jCheckBoxChange.isSelected());
         bean.setFileFormatName((String)jComboBoxFileFormat.getSelectedItem());
         return bean;
+    }
+
+    private String[] getFormatNames() {
+        TreeSet<String> formatNames = new TreeSet<String>();
+        for (String formatName : javax.imageio.ImageIO.getWriterFormatNames()) {
+            formatNames.add(formatName.toLowerCase());
+        }
+        return formatNames.toArray(new String[formatNames.size()]);
     }
 }

@@ -6,6 +6,11 @@
 package de.tynne.schrumpf.business;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriter;
 
 /**
  *
@@ -31,11 +36,13 @@ public class FormatBean {
         this.fileFormatName = fileFormatName;
     }
     
-    public File getTargetNameFor(File in) {
-        File result = in;
+    public Iterator<ImageWriter> getWriterFor(ImageReader imageReader) throws IOException {
+        Iterator<ImageWriter> result;
         if (change) {
-            // TODO
+            result = ImageIO.getImageWritersByFormatName(fileFormatName);
+        } else {
+            result = ImageIO.getImageWritersByFormatName(imageReader.getFormatName());
         }
-        return in;
+        return result;
     }
 }

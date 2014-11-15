@@ -54,7 +54,7 @@
         <BindingProperty name="enabled" source="jCheckBoxChange" sourcePath="${selected}" target="jComboBoxFileFormat" targetPath="enabled" updateStrategy="0" immediately="false"/>
       </BindingProperties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String formatNames[] = javax.imageio.ImageIO.getWriterFormatNames();"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String formatNames[] = getFormatNames();"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">

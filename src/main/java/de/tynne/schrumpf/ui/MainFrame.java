@@ -6,6 +6,8 @@
 package de.tynne.schrumpf.ui;
 
 import de.tynne.schrumpf.business.FileCallable;
+import de.tynne.schrumpf.business.FormatBean;
+import de.tynne.schrumpf.business.NamingBean;
 import de.tynne.schrumpf.business.ResizeBean;
 import de.tynne.schrumpf.prefs.BeanPrefsMapper;
 import java.awt.Cursor;
@@ -276,9 +278,11 @@ public class MainFrame extends javax.swing.JFrame {
                 LOGGER.debug("Dropped {} files: {}", files.size(), files);
                 
                 ResizeBean resizeBean = resizePanel1.toBean();
+                FormatBean formatBean = formatPanel1.toBean();
+                NamingBean namingBean = namingPanel1.toBean();
                 
                 for (File f : files) {
-                    FileCallable callable = new FileCallable(f, resizeBean);
+                    FileCallable callable = new FileCallable(f, resizeBean, formatBean, namingBean);
                     try {
                         callable.call();
                     } catch (Exception ex) {
