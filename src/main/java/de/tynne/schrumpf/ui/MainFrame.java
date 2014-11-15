@@ -468,9 +468,14 @@ public class MainFrame extends javax.swing.JFrame {
         showInfo("Info.ready");
     }
     
-    Image getMyIconImage() {
+    static Image getMyIconImage() {
+        ImageIcon imageIcon = getMyIcon();
+        return imageIcon != null ? imageIcon.getImage() : null;
+    }
+    
+    static ImageIcon getMyIcon() {
         try {
-            InputStream is = getClass().getResourceAsStream("Logo-Entwurf-80x60.png");
+            InputStream is = MainFrame.class.getResourceAsStream("Logo-Entwurf-80x60.png");
             if (is == null)
                 return null;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -482,7 +487,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
             
             ImageIcon icon = new ImageIcon(baos.toByteArray());
-            return icon.getImage();
+            return icon;
         } catch (IOException ex) {
             LOGGER.warn("No icon loadable", ex);
             return null;

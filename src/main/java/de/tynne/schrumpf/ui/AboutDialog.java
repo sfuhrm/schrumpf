@@ -30,6 +30,7 @@ public class AboutDialog extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jLabelTitle = new javax.swing.JLabel();
+        jLabelIcon = new javax.swing.JLabel();
         jLabelVersion = new javax.swing.JLabel();
         jLabelCopyright = new javax.swing.JLabel();
         jButtonOk = new javax.swing.JButton();
@@ -44,9 +45,14 @@ public class AboutDialog extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 0);
         getContentPane().add(jLabelTitle, gridBagConstraints);
+
+        jLabelIcon.setIcon(MainFrame.getMyIcon());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        getContentPane().add(jLabelIcon, gridBagConstraints);
 
         jLabelVersion.setText(bundle.getString("AboutDialog.jLabelVersion.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -121,6 +127,7 @@ public class AboutDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonOk;
     private javax.swing.JLabel jLabelCopyright;
+    private javax.swing.JLabel jLabelIcon;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelVersion;
     // End of variables declaration//GEN-END:variables
