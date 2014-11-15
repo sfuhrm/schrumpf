@@ -12,6 +12,7 @@ import de.tynne.schrumpf.business.ResizeBean;
 import de.tynne.schrumpf.business.SkippedException;
 import de.tynne.schrumpf.prefs.BeanPrefsMapper;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -21,6 +22,7 @@ import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +36,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
@@ -122,6 +127,7 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/MainFrame"); // NOI18N
         setTitle(bundle.getString("MainFrame.title")); // NOI18N
+        setIconImage(getMyIconImage());
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         resizePanel1.setName("Resize"); // NOI18N
@@ -430,5 +436,26 @@ public class MainFrame extends javax.swing.JFrame {
             
     private void initInternal() {
         showInfo("Info.ready");
+    }
+    
+    Image getMyIconImage() {
+        try {
+            InputStream is = getClass().getResourceAsStream("Logo-Entwurf-80x60.png");
+            if (is == null)
+                return null;
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            
+            byte buff[] = new byte[1024];
+            int len;
+            while ((len = is.read(buff)) > 0) {
+                baos.write(buff, 0, len);
+            }
+            
+            ImageIcon icon = new ImageIcon(baos.toByteArray());
+            return icon.getImage();
+        } catch (IOException ex) {
+            LOGGER.warn("No icon loadable", ex);
+            return null;
+        }
     }
 }
