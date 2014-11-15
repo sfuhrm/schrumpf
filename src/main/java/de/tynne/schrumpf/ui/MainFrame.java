@@ -37,10 +37,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -259,11 +261,17 @@ public class MainFrame extends javax.swing.JFrame {
         jTextFieldInfo.setText(bundle.getString("MainFrame.txt.prefs.reset")); // NOI18N
     }//GEN-LAST:event_jMenuItemResetSettingsActionPerformed
 
+    
+    private ImageFileFilter imageFileFilter = new ImageFileFilter();
+    
     private void jMenuItemResizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemResizeActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDragEnabled(true);
         fileChooser.setMultiSelectionEnabled(true);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.addChoosableFileFilter(imageFileFilter);
+        fileChooser.setFileFilter(imageFileFilter);
+        
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             resizeFiles(Arrays.asList(fileChooser.getSelectedFiles()));

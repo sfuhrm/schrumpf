@@ -82,13 +82,13 @@ public class NamingBean {
         return result;
     }
     
-    private String newName(ImageWriter imageWriter, String inName) {
+    public static String[] parseNameAndSuffix(String inName) {
         Pattern typeSuffixPattern = Pattern.compile("(.*)\\.([^.]+)");
-        
+
         Matcher matcher = typeSuffixPattern.matcher(inName);
         String nameBase;
         String nameSuffix;
-        
+
         if (matcher.matches()) {
             // has suffix
             nameBase = matcher.group(1);
@@ -97,7 +97,15 @@ public class NamingBean {
             nameBase = inName;
             nameSuffix = "";
         }
+        return new String[] {nameBase, nameSuffix};
+    }
+    
+    private String newName(ImageWriter imageWriter, String inName) {
         
+        String nameAndSuffix[] = parseNameAndSuffix(inName);
+        String nameBase = nameAndSuffix[0];
+        String nameSuffix = nameAndSuffix[1];
+                
         LOGGER.debug("Name: {}, Base: {}, Suffix: {}", inName, nameBase, nameSuffix);
         
         StringBuilder newBase = new StringBuilder(nameBase);
