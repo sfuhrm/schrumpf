@@ -33,11 +33,11 @@ public class ResizePanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        jCheckBoxChange = new javax.swing.JCheckBox();
         jLabelPreferredWidth = new javax.swing.JLabel();
         jSpinnerPreferredWidth = new javax.swing.JSpinner();
         jLabelPreferredHeight = new javax.swing.JLabel();
         jSpinnerPreferredHeight = new javax.swing.JSpinner();
-        jCheckBoxChange = new javax.swing.JCheckBox();
         jLabelPresets = new javax.swing.JLabel();
         jComboBoxVideoStandardFormats = new javax.swing.JComboBox();
         jCheckBoxKeepAspect = new javax.swing.JCheckBox();
@@ -46,46 +46,6 @@ public class ResizePanel extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ResizePanel.border.title"))); // NOI18N
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
-
-        jLabelPreferredWidth.setText(bundle.getString("ResizePanel.jLabelPreferredWidth.text")); // NOI18N
-        jLabelPreferredWidth.setName("jLabelPreferredWidth"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        add(jLabelPreferredWidth, gridBagConstraints);
-
-        jSpinnerPreferredWidth.setToolTipText(bundle.getString("ResizePanel.jSpinnerPreferredWidth.toolTipText")); // NOI18N
-        jSpinnerPreferredWidth.setName("jSpinnerPreferredWidth"); // NOI18N
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jSpinnerPreferredWidth, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        add(jSpinnerPreferredWidth, gridBagConstraints);
-
-        jLabelPreferredHeight.setText(bundle.getString("ResizePanel.jLabelPreferredHeight.text")); // NOI18N
-        jLabelPreferredHeight.setName("jLabelPreferredHeight"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        add(jLabelPreferredHeight, gridBagConstraints);
-
-        jSpinnerPreferredHeight.setToolTipText(bundle.getString("ResizePanel.jSpinnerPreferredHeight.toolTipText")); // NOI18N
-        jSpinnerPreferredHeight.setName("jSpinnerPreferredHeight"); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jSpinnerPreferredHeight, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        add(jSpinnerPreferredHeight, gridBagConstraints);
 
         jCheckBoxChange.setText(bundle.getString("ResizePanel.jCheckBoxChange.text")); // NOI18N
         jCheckBoxChange.setToolTipText(bundle.getString("ResizePanel.jCheckBoxChange.toolTipText")); // NOI18N
@@ -96,10 +56,41 @@ public class ResizePanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         add(jCheckBoxChange, gridBagConstraints);
+
+        jLabelPreferredWidth.setText(bundle.getString("ResizePanel.jLabelPreferredWidth.text")); // NOI18N
+        jLabelPreferredWidth.setName("jLabelPreferredWidth"); // NOI18N
+        add(jLabelPreferredWidth, new java.awt.GridBagConstraints());
+
+        jSpinnerPreferredWidth.setToolTipText(bundle.getString("ResizePanel.jSpinnerPreferredWidth.toolTipText")); // NOI18N
+        jSpinnerPreferredWidth.setName("jSpinnerPreferredWidth"); // NOI18N
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jSpinnerPreferredWidth, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(jSpinnerPreferredWidth, gridBagConstraints);
+
+        jLabelPreferredHeight.setText(bundle.getString("ResizePanel.jLabelPreferredHeight.text")); // NOI18N
+        jLabelPreferredHeight.setName("jLabelPreferredHeight"); // NOI18N
+        add(jLabelPreferredHeight, new java.awt.GridBagConstraints());
+
+        jSpinnerPreferredHeight.setToolTipText(bundle.getString("ResizePanel.jSpinnerPreferredHeight.toolTipText")); // NOI18N
+        jSpinnerPreferredHeight.setName("jSpinnerPreferredHeight"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jSpinnerPreferredHeight, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(jSpinnerPreferredHeight, gridBagConstraints);
 
         jLabelPresets.setText(bundle.getString("ResizePanel.jLabelPresets.text")); // NOI18N
         jLabelPresets.setName("jLabelPresets"); // NOI18N
@@ -120,6 +111,7 @@ public class ResizePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
         add(jComboBoxVideoStandardFormats, gridBagConstraints);
 
         jCheckBoxKeepAspect.setText(bundle.getString("ResizePanel.jCheckBoxKeepAspect.text")); // NOI18N
