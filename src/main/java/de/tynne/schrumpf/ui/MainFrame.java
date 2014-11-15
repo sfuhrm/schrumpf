@@ -118,6 +118,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile = new javax.swing.JMenu();
         jMenuItemAbout = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItemResetSettings = new javax.swing.JMenuItem();
+        jMenuItemReloadSettings = new javax.swing.JMenuItem();
         jMenuItemSaveSettings = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItemQuit = new javax.swing.JMenuItem();
@@ -171,6 +173,22 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jMenuItemAbout);
         jMenuFile.add(jSeparator1);
 
+        jMenuItemResetSettings.setText(bundle.getString("MainFrame.jMenuItemResetSettings.text")); // NOI18N
+        jMenuItemResetSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemResetSettingsActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemResetSettings);
+
+        jMenuItemReloadSettings.setText(bundle.getString("MainFrame.jMenuItemReloadSettings.text")); // NOI18N
+        jMenuItemReloadSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemReloadSettingsActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemReloadSettings);
+
         jMenuItemSaveSettings.setText(bundle.getString("MainFrame.jMenuItemSaveSettings.text")); // NOI18N
         jMenuItemSaveSettings.setToolTipText(bundle.getString("MainFrame.jMenuItemSaveSettings.toolTipText")); // NOI18N
         jMenuItemSaveSettings.addActionListener(new java.awt.event.ActionListener() {
@@ -212,6 +230,18 @@ public class MainFrame extends javax.swing.JFrame {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/MainFrame"); // NOI18N
         jTextFieldInfo.setText(bundle.getString("MainFrame.txt.prefs.saved")); // NOI18N
     }//GEN-LAST:event_jMenuItemSaveSettingsActionPerformed
+
+    private void jMenuItemReloadSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemReloadSettingsActionPerformed
+        BeanPrefsMapper.mapPrefsToBean(this, readPrefsMapping());
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/MainFrame"); // NOI18N
+        jTextFieldInfo.setText(bundle.getString("MainFrame.txt.prefs.reloaded")); // NOI18N
+    }//GEN-LAST:event_jMenuItemReloadSettingsActionPerformed
+
+    private void jMenuItemResetSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemResetSettingsActionPerformed
+        BeanPrefsMapper.mapDefaultsToBean(this, readPrefsMapping());
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/MainFrame"); // NOI18N
+        jTextFieldInfo.setText(bundle.getString("MainFrame.txt.prefs.reset")); // NOI18N
+    }//GEN-LAST:event_jMenuItemResetSettingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,6 +285,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemQuit;
+    private javax.swing.JMenuItem jMenuItemReloadSettings;
+    private javax.swing.JMenuItem jMenuItemResetSettings;
     private javax.swing.JMenuItem jMenuItemSaveSettings;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;

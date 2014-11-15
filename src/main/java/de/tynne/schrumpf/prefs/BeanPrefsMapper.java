@@ -38,7 +38,37 @@ public class BeanPrefsMapper {
         Preferences prefs = Preferences.userNodeForPackage(bean.getClass());
         return prefs;
     }
+    
+    public static void mapDefaultsToBean(Object bean, Properties fields) {
+        Objects.requireNonNull(bean);
         
+        ExpressionFactory factory = new de.odysseus.el.ExpressionFactoryImpl();
+        de.odysseus.el.util.SimpleContext context = new de.odysseus.el.util.SimpleContext();
+        TypeConverter converter = new TypeConverterImpl();
+        
+        context.setVariable(ROOT_NAME, factory.createValueExpression(bean, bean.getClass()));
+        
+        for (Map.Entry<Object,Object> entry : fields.entrySet()) {
+            String key = (String) entry.getKey();
+            String defaultValue = (String) entry.getValue();
+            
+            MDC.put("key", key);
+            
+            LOGGER.debug("defaultValue = '{}'", defaultValue);
+            
+            ValueExpression exp = factory.createValueExpression(context, key, Object.class);
+
+            Object oldValue = exp.getValue(context);
+            
+            ValueExpression typedExp = factory.createValueExpression(context, key, oldValue.getClass());
+                        
+            Object convertedPrefsValue = converter.convert(defaultValue, oldValue.getClass());
+            LOGGER.debug("Mapping '{}' to '{}', old value is '{}'. Type is {}", key, defaultValue, oldValue, oldValue.getClass().getName());
+            
+            typedExp.setValue(context, convertedPrefsValue);
+        }
+    }
+    
     public static void mapPrefsToBean(Object bean, Properties fields) {
         Objects.requireNonNull(bean);
         
