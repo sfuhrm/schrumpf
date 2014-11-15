@@ -32,4 +32,9 @@ public enum VideoStandardFormat {
     public int height() {
         return height;
     }
+
+    @Override
+    public String toString() {
+        return name()+" "+width+"x"+height;
+    }
 }

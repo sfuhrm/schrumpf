@@ -37,8 +37,10 @@ public class ResizePanel extends javax.swing.JPanel {
         jSpinnerPreferredWidth = new javax.swing.JSpinner();
         jLabelPreferredHeight = new javax.swing.JLabel();
         jSpinnerPreferredHeight = new javax.swing.JSpinner();
-        jCheckBoxKeepAspect = new javax.swing.JCheckBox();
         jCheckBoxChange = new javax.swing.JCheckBox();
+        jLabelPresets = new javax.swing.JLabel();
+        jComboBoxVideoStandardFormats = new javax.swing.JComboBox();
+        jCheckBoxKeepAspect = new javax.swing.JCheckBox();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("de/tynne/schrumpf/ui/ResizePanel"); // NOI18N
         setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ResizePanel.border.title"))); // NOI18N
@@ -85,20 +87,6 @@ public class ResizePanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         add(jSpinnerPreferredHeight, gridBagConstraints);
 
-        jCheckBoxKeepAspect.setText(bundle.getString("ResizePanel.jCheckBoxKeepAspect.text")); // NOI18N
-        jCheckBoxKeepAspect.setToolTipText(bundle.getString("ResizePanel.jCheckBoxKeepAspect.toolTipText")); // NOI18N
-        jCheckBoxKeepAspect.setName("jCheckBoxKeepAspect"); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jCheckBoxKeepAspect, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        jCheckBoxKeepAspect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxKeepAspectActionPerformed(evt);
-            }
-        });
-        add(jCheckBoxKeepAspect, new java.awt.GridBagConstraints());
-
         jCheckBoxChange.setText(bundle.getString("ResizePanel.jCheckBoxChange.text")); // NOI18N
         jCheckBoxChange.setToolTipText(bundle.getString("ResizePanel.jCheckBoxChange.toolTipText")); // NOI18N
         jCheckBoxChange.setName("jCheckBoxChange"); // NOI18N
@@ -113,6 +101,41 @@ public class ResizePanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         add(jCheckBoxChange, gridBagConstraints);
 
+        jLabelPresets.setText(bundle.getString("ResizePanel.jLabelPresets.text")); // NOI18N
+        jLabelPresets.setName("jLabelPresets"); // NOI18N
+        add(jLabelPresets, new java.awt.GridBagConstraints());
+
+        jComboBoxVideoStandardFormats.setModel(new javax.swing.DefaultComboBoxModel(VideoStandardFormat.values()));
+        jComboBoxVideoStandardFormats.setToolTipText(bundle.getString("ResizePanel.jComboBoxVideoStandardFormats.toolTipText")); // NOI18N
+        jComboBoxVideoStandardFormats.setName("jComboBoxVideoStandardFormats"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jComboBoxVideoStandardFormats, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jComboBoxVideoStandardFormats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxVideoStandardFormatsActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        add(jComboBoxVideoStandardFormats, gridBagConstraints);
+
+        jCheckBoxKeepAspect.setText(bundle.getString("ResizePanel.jCheckBoxKeepAspect.text")); // NOI18N
+        jCheckBoxKeepAspect.setToolTipText(bundle.getString("ResizePanel.jCheckBoxKeepAspect.toolTipText")); // NOI18N
+        jCheckBoxKeepAspect.setName("jCheckBoxKeepAspect"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxChange, org.jdesktop.beansbinding.ELProperty.create("${selected}"), jCheckBoxKeepAspect, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jCheckBoxKeepAspect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxKeepAspectActionPerformed(evt);
+            }
+        });
+        add(jCheckBoxKeepAspect, new java.awt.GridBagConstraints());
+
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -124,12 +147,22 @@ public class ResizePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxChangeActionPerformed
 
+    private void jComboBoxVideoStandardFormatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxVideoStandardFormatsActionPerformed
+        VideoStandardFormat format = (VideoStandardFormat) jComboBoxVideoStandardFormats.getSelectedItem();
+        if (format != null) {
+            jSpinnerPreferredWidth.setValue(format.width());
+            jSpinnerPreferredHeight.setValue(format.height());
+        }
+    }//GEN-LAST:event_jComboBoxVideoStandardFormatsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jCheckBoxChange;
     private javax.swing.JCheckBox jCheckBoxKeepAspect;
+    private javax.swing.JComboBox jComboBoxVideoStandardFormats;
     private javax.swing.JLabel jLabelPreferredHeight;
     private javax.swing.JLabel jLabelPreferredWidth;
+    private javax.swing.JLabel jLabelPresets;
     private javax.swing.JSpinner jSpinnerPreferredHeight;
     private javax.swing.JSpinner jSpinnerPreferredWidth;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
