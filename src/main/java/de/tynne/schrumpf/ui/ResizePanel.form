@@ -112,6 +112,9 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="de/tynne/schrumpf/ui/ResizePanel.properties" key="ResizePanel.jCheckBoxChange.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="de/tynne/schrumpf/ui/ResizePanel.properties" key="ResizePanel.jCheckBoxChange.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="jCheckBoxChange" noResource="true"/>
       </Properties>
       <Events>

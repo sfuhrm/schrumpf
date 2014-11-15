@@ -100,6 +100,7 @@ public class ResizePanel extends javax.swing.JPanel {
         add(jCheckBoxKeepAspect, new java.awt.GridBagConstraints());
 
         jCheckBoxChange.setText(bundle.getString("ResizePanel.jCheckBoxChange.text")); // NOI18N
+        jCheckBoxChange.setToolTipText(bundle.getString("ResizePanel.jCheckBoxChange.toolTipText")); // NOI18N
         jCheckBoxChange.setName("jCheckBoxChange"); // NOI18N
         jCheckBoxChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
