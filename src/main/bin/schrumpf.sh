@@ -1,7 +1,8 @@
 #! /bin/bash
 
 # where this script is located
-SCRIPTROOT=$(dirname $0)
+REALEXEC=$(readlink -f $0)
+SCRIPTROOT=$(dirname $REALEXEC)
 JAR=$SCRIPTROOT/../lib/Schrumpf-*.jar
 CP=.:$JAR
 
