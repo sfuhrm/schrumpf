@@ -1,0 +1,18 @@
+Source: schrumpf
+Maintainer: Stephan Fuhrmann <stfu_os@freenet.de>
+Section: graphics
+Priority: optional
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 9), 
+ java7-runtime
+Homepage: http://tynne.de/
+X-Python-Version: >= 2.6
+
+Package: schrumpf
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+ java7-runtime
+Description: Image shrinking and conversion
+ Schrumpf is a simple application for converting and shrinking images using a
+ simple drag and drop schema.
+ 

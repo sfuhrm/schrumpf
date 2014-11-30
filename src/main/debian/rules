@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+DESTDIR = $(CURDIR)/debian/schrumpf
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	set -e; \
+	mkdir -p $(DESTDIR)/usr/share/pixmaps
+	convert $(CURDIR)/resources/schrumpf.png -resize 22 \
+                        $(DESTDIR)/usr/share/pixmaps/schrumpf-22.xpm; \
+	mkdir -p $(DESTDIR)/usr/share/icons/hicolor/22x22/apps
+	convert $(CURDIR)/resources/schrumpf.png -resize 22 \
+                        $(DESTDIR)/usr/share/icons/hicolor/22x22/apps/schrumpf.png; \
+	convert $(CURDIR)/resources/schrumpf.png -resize 32 \
+                        $(DESTDIR)/usr/share/pixmaps/schrumpf.xpm; \
+
+#	for size in 16 24 32; do \
+#		convert $(CURDIR)/resources/images/$${size}x$${size}/schrumpf.png \
+#                                $(DESTDIR)/usr/share/pixmaps/schrumpf-$${size}.xpm || exit 1; \
+#	done
+#        dh_link /usr/lib/picard/run /usr/bin/picard
+
