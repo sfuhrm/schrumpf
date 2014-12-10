@@ -17,7 +17,7 @@ The operations supported at the moment are
 
 The main features are:
 
-* Easy usability (my mother can use it and she loves it!)
+* Easy usability (my mother is able to use it and she loves it!)
 * Localized with English and German locales
 * Good performance using all of the machines available hardware threads
 
@@ -36,7 +36,7 @@ https://github.com/sfuhrm/schrumpf/releases/tag/v1.0
 
 Schrumpf is working and operating as expected. Work and participation is very anticipated.
 There's only two conditions:
-* My mother needs to still use it.
+* My mother should still be able to use it.
 * Keep the code quality high (or even better, improve it).
 
 There is some very basic Debian package generation shell scripting voodoo which creates a working Debian package.
