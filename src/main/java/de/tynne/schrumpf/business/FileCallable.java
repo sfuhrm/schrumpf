@@ -26,9 +26,17 @@ import org.slf4j.LoggerFactory;
 public class FileCallable implements Callable<FileCallable> {
     
     private final static Logger LOGGER = LoggerFactory.getLogger(FileCallable.class);
+    
+    /** The input file to operate on. */
     private final File file;
+    
+    /** The settings for resizing. */
     private final ResizeBean resizeBean;
+    
+    /** The settings for the new image format. */
     private final FormatBean formatBean;
+   
+    /** The settings for the target name. */
     private final NamingBean namingBean;
 
     public FileCallable(File file, ResizeBean resizeBean, FormatBean formatBean, NamingBean namingBean) {
@@ -94,7 +102,6 @@ public class FileCallable implements Callable<FileCallable> {
                     try (ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(target)) {
                         imageWriter.setOutput(imageOutputStream);
                         imageWriter.write(scaled);
-
                     }
                 } else {
                     LOGGER.warn("Found no image writer for '{}'", file.getAbsolutePath());
