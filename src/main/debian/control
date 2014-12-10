@@ -5,7 +5,7 @@ Priority: optional
 Standards-Version: 3.9.4
 Build-Depends: debhelper (>= 9), 
  java7-runtime
-Homepage: http://tynne.de/
+Homepage: https://github.com/sfuhrm/schrumpf
 
 Package: schrumpf
 Architecture: all
