@@ -32,6 +32,7 @@ public class AboutDialog extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabelTitle = new javax.swing.JLabel();
         jLabelIcon = new javax.swing.JLabel();
+        jPanelSpacy = new javax.swing.JPanel();
         jLabelVersion = new javax.swing.JLabel();
         jLabelCopyright = new javax.swing.JLabel();
         jButtonOk = new javax.swing.JButton();
@@ -58,15 +59,22 @@ public class AboutDialog extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         jPanel1.add(jLabelIcon, gridBagConstraints);
 
+        jPanelSpacy.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        jPanelSpacy.setLayout(new java.awt.GridBagLayout());
+
         jLabelVersion.setText(bundle.getString("AboutDialog.jLabelVersion.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        jPanel1.add(jLabelVersion, gridBagConstraints);
+        jPanelSpacy.add(jLabelVersion, gridBagConstraints);
 
         jLabelCopyright.setText(bundle.getString("AboutDialog.jLabelCopyright.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        jPanel1.add(jLabelCopyright, gridBagConstraints);
+        jPanelSpacy.add(jLabelCopyright, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        jPanel1.add(jPanelSpacy, gridBagConstraints);
 
         jButtonOk.setText(bundle.getString("AboutDialog.jButtonOk.text")); // NOI18N
         jButtonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -141,5 +149,6 @@ public class AboutDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelVersion;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelSpacy;
     // End of variables declaration//GEN-END:variables
 }
