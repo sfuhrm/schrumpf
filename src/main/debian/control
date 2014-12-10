@@ -6,7 +6,6 @@ Standards-Version: 3.9.4
 Build-Depends: debhelper (>= 9), 
  java7-runtime
 Homepage: http://tynne.de/
-X-Python-Version: >= 2.6
 
 Package: schrumpf
 Architecture: all
