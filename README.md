@@ -23,7 +23,7 @@ The main features are:
 
 ### Runtime Requirements
 
-The requirements are at the moment only an installed Java Runtime 7+.
+The requirements are at the moment only an installed [Java Runtime 7+](http://java.com/).
 
 ### Downloading
 
@@ -43,7 +43,8 @@ There is some very basic Debian package generation shell scripting voodoo which 
 
 ### Building
 
-Schrumpf is best edited using NetBeans because the UI classes are designed with NetBeans' Matisse UI designed.
+Schrumpf is best edited using [NetBeans](https://netbeans.org/)
+because the UI classes are designed with NetBeans' Matisse UI designed.
 
 You can build Schrumpf from the source code by utilizing the command line
 
