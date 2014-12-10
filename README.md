@@ -1,6 +1,8 @@
 Schrumpf
 ========
 
+![alt text](https://raw.githubusercontent.com/sfuhrm/schrumpf/master/art/Main-EN.png "Schrumpf main window screenshot")
+
 Java UI application for batch image resizing and format changing
 
 ### Introduction
