@@ -23,6 +23,13 @@ The main features are:
 
 The requirements are at the moment only an installed Java Runtime 7+.
 
+### Downloading
+
+Releases can be found on Github. You can download the current
+files here:
+
+https://github.com/sfuhrm/schrumpf/releases/tag/v1.0
+
 ### Current status
 
 Schrumpf is working and operating as expected. Work and participation is very anticipated.
