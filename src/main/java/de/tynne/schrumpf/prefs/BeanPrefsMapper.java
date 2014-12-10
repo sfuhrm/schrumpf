@@ -20,6 +20,7 @@ import org.slf4j.MDC;
 
 /**
  * Maps bean values to prefs and vice versa.
+ * This class replaces a lot of data field copying to a descriptive properties file.
  * Uses properties objects for control.
  * The properties keys are EL expressions referring to {@link #ROOT_NAME} which
  * is the bean object passed in the arguments of the map methods.
@@ -32,6 +33,7 @@ public class BeanPrefsMapper {
     public final static String ROOT_NAME = "root";
     
     private BeanPrefsMapper() {
+        // no instance allowed
     }
     
     private static Preferences getPrefsFor(Object bean) {
@@ -39,6 +41,13 @@ public class BeanPrefsMapper {
         return prefs;
     }
     
+    /** Writes the defaults into the given bean.
+     * @param bean the bean to write the defaults to.
+     * @param fields the descriptions of the fields to operate on.
+     * The keys are the EL expressions relative to the given
+     * <code>bean</code> with the {@link #ROOT_NAME}, the
+     * values are the defaults.
+     */
     public static void mapDefaultsToBean(Object bean, Properties fields) {
         Objects.requireNonNull(bean);
         
@@ -69,6 +78,16 @@ public class BeanPrefsMapper {
         }
     }
     
+    /**
+     * Gets the prefereces for the given bean class and writes them to the bean.
+     * Falls back to the fields passed in.
+     * 
+     * @param bean the bean to write to.
+     * @param fields the descriptions of the fields to operate on.
+     * The keys are the EL expressions relative to the given
+     * <code>bean</code> with the {@link #ROOT_NAME}, the
+     * values are the defaults.
+     */
     public static void mapPrefsToBean(Object bean, Properties fields) {
         Objects.requireNonNull(bean);
         
@@ -109,6 +128,17 @@ public class BeanPrefsMapper {
         }
     }
     
+    /**
+     * Writes the prefereces to the preferences backing storage from the
+     * beans values.
+     * Falls back to the fields passed in.
+     * 
+     * @param bean the bean to read from.
+     * @param fields the descriptions of the fields to operate on.
+     * The keys are the EL expressions relative to the given
+     * <code>bean</code> with the {@link #ROOT_NAME}, the
+     * values are the defaults.
+     */
     public static void mapBeanToPrefs(Object bean, Properties fields) {
         Objects.requireNonNull(bean);
         

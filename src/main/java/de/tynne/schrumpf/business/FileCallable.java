@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Resizes a single image.
- * @author fury
+ * @author Stephan Fuhrmann <stephan@tynne.de>
  */
 public class FileCallable implements Callable<FileCallable> {
     

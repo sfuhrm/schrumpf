@@ -13,8 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
- * @author fury
+ * The logic for finding an output file name and directory
+ * for an image file.
+ * @author Stephan Fuhrmann <stephan@tynne.de>
  */
 public class NamingBean {
     private final static Logger LOGGER = LoggerFactory.getLogger(NamingBean.class);

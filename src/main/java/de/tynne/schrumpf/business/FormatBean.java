@@ -12,8 +12,9 @@ import javax.imageio.ImageReader;
 import javax.imageio.ImageWriter;
 
 /**
- *
- * @author fury
+ * The logic for outputting a certain image format.
+ * @see #getWriterFor(javax.imageio.ImageReader) 
+ * @author Stephan Fuhrmann <stephan@tynne.de>
  */
 public class FormatBean {
     private boolean change;
