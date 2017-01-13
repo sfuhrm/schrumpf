@@ -30,7 +30,7 @@ The requirements are at the moment only an installed [Java Runtime 7+](http://ja
 Releases can be found on Github. You can download the current
 files here:
 
-https://github.com/sfuhrm/schrumpf/releases/tag/v1.0
+https://github.com/sfuhrm/schrumpf/releases/tag/v1.0.1
 
 ### Current status
 
