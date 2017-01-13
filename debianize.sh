@@ -1,17 +1,18 @@
 #! /bin/bash -x
 
 ROOT=$(pwd)
+VERSION=1.0.1
 
 mvn clean package
 mkdir target/debian
-cp target/Schrumpf-1.0-SNAPSHOT-dist.tar.gz target/debian
+cp target/Schrumpf-$VERSION-SNAPSHOT-dist.tar.gz target/debian
 cd target/debian
-tar -xzvf Schrumpf-1.0-SNAPSHOT-dist.tar.gz
-mv Schrumpf-1.0-SNAPSHOT schrumpf-1.0
-tar -czvf schrumpf_1.0.orig.tar.gz schrumpf-1.0
-cp -r ../../src/main/debian schrumpf-1.0
-mkdir schrumpf-1.0/resources
-cp -r ../../src/main/resources/de/sfuhrm/schrumpf/ui/Logo-Entwurf-80x60.png schrumpf-1.0/resources/schrumpf.png
+tar -xzvf Schrumpf-$VERSION-SNAPSHOT-dist.tar.gz
+mv Schrumpf-$VERSION-SNAPSHOT schrumpf-$VERSION
+tar -czvf schrumpf_$VERSION.orig.tar.gz schrumpf-$VERSION
+cp -r ../../src/main/debian schrumpf-$VERSION
+mkdir schrumpf-$VERSION/resources
+cp -r ../../src/main/resources/de/sfuhrm/schrumpf/ui/Logo-Entwurf-80x60.png schrumpf-$VERSION/resources/schrumpf.png
 
-cd schrumpf-1.0
+cd schrumpf-$VERSION
 rm -fr build/ && debuild -us -uc

@@ -1,3 +1,9 @@
+schrumpf (1.0.1-1) UNRELEASED; urgency=low
+
+  * Updated used libraries.
+
+ -- Stephan Fuhrmann <stfu_os@freenet.de>  Fri, 13 Jan 2017 21:26:00 +0100
+
 schrumpf (1.0-1) UNRELEASED; urgency=low
 
   * New upstream release.
