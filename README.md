@@ -1,7 +1,7 @@
 Schrumpf ![Schrumpf Logo](https://raw.githubusercontent.com/sfuhrm/schrumpf/master/src/main/resources/de/sfuhrm/schrumpf/ui/Logo-Entwurf-80x60.png "Schrumpf Logo")
 ========
 
-![Schrumpf Screenshot](https://raw.githubusercontent.com/sfuhrm/schrumpf/master/art/Main-EN.png "Schrumpf main window screenshot")
+![Schrumpf Screenshot](https://raw.githubusercontent.com/sfuhrm/schrumpf/master/image/Main-EN.png "Schrumpf main window screenshot")
 
 Java UI application for batch image resizing and format changing
 
