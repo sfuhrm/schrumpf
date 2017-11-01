@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Schrumpf
+GenericName=Image conversion/scaling
+GenericName[de]=Bildkonvertierung/-skalierung
+Comment=Converts image formats and scales images
+Comment[de]=Konvertiert Bildformate und skaliert Bilder
+Exec=/usr/bin/schrumpf
+Icon=/usr/share/pixmaps/schrumpf.xpm
+Terminal=false
+Categories=Graphics;2DGraphics;RasterGraphics;GTK;
+StartupNotify=true
+MimeType=image/bmp;image/gif;image/tiff;image/jpeg;image/png;
+
