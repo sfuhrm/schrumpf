@@ -24,7 +24,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>e.sfuhrm.schrumpf.ui.MainFrame</mainClass>
+                            <mainClass>de.sfuhrm.schrumpf.ui.MainFrame</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
