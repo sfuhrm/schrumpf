@@ -52,7 +52,7 @@ You can build Schrumpf from the source code by utilizing the command line
 
 After that, in the target directory there'll be a directory containing a working bash shell script that starts Schrumpf:
 
-      ~/dev/git/schrumpf$ ./target/Schrumpf-1.0-SNAPSHOT-dist/Schrumpf-1.0-SNAPSHOT/bin/schrumpf.sh 
+      ~/dev/git/schrumpf$ java -jar target/Schrumpf-1.0.2-SNAPSHOT-jar-with-dependencies.jar 
 
 ### License
 
