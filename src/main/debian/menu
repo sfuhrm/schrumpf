@@ -1,3 +1,0 @@
-?package(schrumpf): needs="X11" section="Applications/Graphics" title="Schrumpf" \
-  longtitle="Schrumpf - Image resizing" \
-  command="/usr/bin/schrumpf" icon="/usr/share/pixmaps/schrumpf.xpm"

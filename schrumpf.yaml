@@ -1,0 +1,116 @@
+packageName: schrumpf # name of the project package
+buildCommand: mvn --batch-mode clean package
+cleanCommand: mvn --batch-mode clean
+author: # who's the main author of the program TBD: author/maintainer/etc
+  name: Stephan Fuhrmann
+  email: s@sfuhrm.de
+maintainer: # who's the package maintainer of the program
+  name: Stephan Fuhrmann
+  email: s@sfuhrm.de
+shortSummary: Graphical image shrinking and conversion tool. # short summary of package content
+longDescription: # long description of package content
+- Schrumpf is a application for converting and shrinking images using a
+- simple drag and drop schema.
+homepage: http://github.com/sfuhrm/schrumpf # homepage of the project
+license: GPL_20 # license the project is in
+targets: # which platforms to build an archive for
+- centos_7
+- debian_stretch
+git:
+  gitUrl: https://github.com/sfuhrm/schrumpf.git
+redhat:
+  group: Utilities/System
+  relations:
+    depends:
+    - pkg: jre
+      op: ge
+      version: 1.7.0
+    build_depends:
+    - pkg: xdg-utils
+    - pkg: java-1.8.0-openjdk-headless
+      op: ge
+      version: 1.8.0
+    - pkg: maven
+debian:
+  priority: optional
+  section: graphics
+  architecture: all
+  relations:
+    depends:
+    - pkg: java7-runtime
+    build_depends:
+    - pkg: debhelper
+      op: ge
+      version: 10
+    - pkg: openjdk-8-jdk-headless
+    - pkg: maven
+    - pkg: xdg-utils
+# Version history of the package. Used for Debian changelogs.
+versions:
+- version: 1.0.2
+  release: 1
+  date: 2017-11-01T22:30:00+01:00
+  changes:
+  - Updated package generation to Capsula.
+- version: 1.0.1
+  release: 1
+  date: 2017-01-13T21:26:00+01:00
+  changes:
+  - Updated used libraries.
+  maintainer: # who's the package maintainer of the program
+    name: Stephan Fuhrmann
+    email: stfu_os@freenet.de
+- version: 1.0
+  release: 1
+  date: 2014-10-25T18:34:55+0200
+  changes:
+  - New upstream release.
+  maintainer: # who's the package maintainer of the program
+    name: Stephan Fuhrmann
+    email: stfu_os@freenet.de
+# Where to install what on the target system?
+install:
+- copy:
+    from: target/Schrumpf-1.0.2-SNAPSHOT-jar-with-dependencies.jar
+    to: /usr/share/schrumpf/schrumpf-jar-with-dependencies.jar
+    owner: root
+    group: root
+    mode: rw-r--r--
+- mkdir:
+    to: /usr/share/pixmaps
+    owner: root
+    group: root
+    mode: rwxr-xr-x
+- copy:
+    from: image/schrumpf-16x16.xpm
+    to: /usr/share/pixmaps/schrumpf-16x16.xpm
+    owner: root
+    group: root
+    mode: rw-r--r--
+- copy:
+    from: image/schrumpf-24x24.xpm
+    to: /usr/share/pixmaps/schrumpf-24x24.xpm
+    owner: root
+    group: root
+    mode: rw-r--r--
+- copy:
+    from: image/schrumpf-32x32.xpm
+    to: /usr/share/pixmaps/schrumpf.xpm
+    owner: root
+    group: root
+    mode: rw-r--r--
+- copy:
+    from: src/main/package/schrumpf
+    to: /usr/bin/schrumpf
+    owner: root
+    group: root
+    mode: rwxr-xr-x
+#- run:
+#    command: xdg-desktop-menu install --novendor --mode system src/main/package/schrumpf.desktop
+- copy:
+    from: src/main/package/schrumpf.desktop
+    to: /usr/share/applications/schrumpf.desktop
+    owner: root
+    group: root
+    mode: rw-r--r--
+
