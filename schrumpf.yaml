@@ -113,4 +113,11 @@ install:
     owner: root
     group: root
     mode: rw-r--r--
-
+- run:
+    command: gzip README.md
+- copy:
+    from: README.md.gz
+    to: /usr/share/doc/schrumpf/README.md.gz
+    owner: root
+    group: root
+    mode: rw-r--r--
