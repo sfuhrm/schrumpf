@@ -127,3 +127,11 @@ install:
     owner: root
     group: root
     mode: rw-r--r--
+- run:
+    command: gzip src/main/package/schrumpf.1
+- copy:
+    from: src/main/package/schrumpf.1.gz
+    to: /usr/share/man/man1/schrumpf.1.gz
+    owner: root
+    group: root
+    mode: rw-r--r--
