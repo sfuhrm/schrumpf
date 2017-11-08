@@ -36,10 +36,8 @@ https://github.com/sfuhrm/schrumpf/releases/tag/v1.0.1
 
 Schrumpf is working and operating as expected. Work and participation is very anticipated.
 There's only two conditions:
-* My mother should still be able to use it.
+* Should still be easy to use.
 * Keep the code quality high (or even better, improve it).
-
-There is some very basic Debian package generation shell scripting voodoo which creates a working Debian package.
 
 ### Building
 
