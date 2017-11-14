@@ -8,9 +8,9 @@ maintainer: # who's the package maintainer of the program
   name: Stephan Fuhrmann
   email: s@sfuhrm.de
 shortSummary: Graphical image shrinking and conversion tool. # short summary of package content
-longDescription: # long description of package content
-- Schrumpf is a application for converting and shrinking images using a
-- simple drag and drop schema.
+longDescription: |
+  Schrumpf is a application for converting and shrinking images using a
+  simple drag and drop schema.
 homepage: http://github.com/sfuhrm/schrumpf # homepage of the project
 license: GPL_20 # license the project is in
 targets: # which platforms to build an archive for
