@@ -26,10 +26,10 @@ jobs:
     with:
       java_version: 21
       artifact_name: jpackage
-      jpackage_input: target/schrumpf-${{ needs.maven_version.outputs.expression_value }}-app/schrumpf-${{ needs.maven_version.outputs.expression_value }}
+      jpackage_input: target/Schrumpf-${{ needs.maven_version.outputs.expression_value }}-app/Schrumpf-${{ needs.maven_version.outputs.expression_value }}
       jpackage_name: schrumpf
-      jpackage_jarfile: lib/schrumpf-${{ needs.maven_version.outputs.expression_value }}.jar
-      jpackage_license: target/schrumpf-${{ needs.maven_version.outputs.expression_value }}-app/schrumpf-${{ needs.maven_version.outputs.expression_value }}/LICENSE.txt
+      jpackage_jarfile: lib/Schrumpf-${{ needs.maven_version.outputs.expression_value }}.jar
+      jpackage_license: target/Schrumpf-${{ needs.maven_version.outputs.expression_value }}-app/Schrumpf-${{ needs.maven_version.outputs.expression_value }}/LICENSE.txt
       jpackage_vendor: Stephan Fuhrmann
       jpackage_copyright: Stephan Fuhrmann
       jpackage_description: Graphical image shrinking and conversion tool.
