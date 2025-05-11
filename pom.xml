@@ -12,6 +12,19 @@
         <connection>scm:git:git@github.com:sfuhrm/schrumpf.git</connection>
         <tag>HEAD</tag>
     </scm>
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE 2.0</name>
+            <url>https://www.gnu.org/licenses/old-licenses/gpl-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
