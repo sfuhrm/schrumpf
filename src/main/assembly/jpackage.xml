@@ -19,8 +19,8 @@
       <directory>${project.basedir}/src/main/desktop</directory>
       <outputDirectory>${assembly.dir}/resources</outputDirectory>
       <includes>
-        <include>uhr.png</include>
-        <include>uhr.desktop</include>
+        <include>schrumpf.png</include>
+        <include>schrumpf.desktop</include>
       </includes>
     </fileSet>
     <fileSet>
