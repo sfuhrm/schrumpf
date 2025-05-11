@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=1.0
+Version=1.5
 Type=Application
 Name=Schrumpf
 GenericName=Image conversion/scaling
@@ -12,4 +12,3 @@ Terminal=false
 Categories=Graphics;2DGraphics;RasterGraphics;GTK;
 StartupNotify=true
 MimeType=image/bmp;image/gif;image/tiff;image/jpeg;image/png;
-
