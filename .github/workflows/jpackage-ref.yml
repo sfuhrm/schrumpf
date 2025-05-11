@@ -1,0 +1,40 @@
+
+
+name: JPackage
+
+on:
+  push:
+    branches: [ master ]
+    tags: [ v* ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  maven_version:
+    uses: sfuhrm/github_workflows/.github/workflows/maven-expression.yml@main
+    permissions:
+      contents: read
+    with:
+      java_version: 21
+      expression: project.version
+  jpackage:
+    needs:
+      - maven_version
+    permissions:
+      contents: read
+    uses: sfuhrm/github_workflows/.github/workflows/jpackage.yml@main
+    with:
+      java_version: 21
+      artifact_name: jpackage
+      jpackage_input: target/schrumpf-${{ needs.maven_version.outputs.expression_value }}-app/schrumpf-${{ needs.maven_version.outputs.expression_value }}
+      jpackage_name: schrumpf
+      jpackage_jarfile: lib/schrumpf-${{ needs.maven_version.outputs.expression_value }}.jar
+      jpackage_license: target/schrumpf-${{ needs.maven_version.outputs.expression_value }}-app/schrumpf-${{ needs.maven_version.outputs.expression_value }}/LICENSE.txt
+      jpackage_vendor: Stephan Fuhrmann
+      jpackage_copyright: Stephan Fuhrmann
+      jpackage_description: Graphical image shrinking and conversion tool.
+      jpackage_mainclass: de.sfuhrm.schrumpf.ui.MainFrame
+      jpackage_linux_deb_maintainer: s@sfuhrm.de
+      jpackage_linux_deb_app_category: graphics
+      jpackage_linux_rpm_app_category: utilities
+      jpackage_win_upgrade_uuid: 5ab39228-2e99-11f0-b950-c30f6c11d448
