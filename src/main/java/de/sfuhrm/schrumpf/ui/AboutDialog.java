@@ -54,7 +54,7 @@ public class AboutDialog extends javax.swing.JDialog {
         setTitle(bundle.getString("AboutDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(null), javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20)));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabelTitle.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
