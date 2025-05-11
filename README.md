@@ -1,5 +1,7 @@
-Schrumpf ![Travis CI](https://travis-ci.org/sfuhrm/schrumpf.svg?branch=master) ![Schrumpf Logo](https://raw.githubusercontent.com/sfuhrm/schrumpf/master/src/main/resources/de/sfuhrm/schrumpf/ui/Logo-Entwurf-80x60.png "Schrumpf Logo")
+Schrumpf 
+![Schrumpf Logo](https://raw.githubusercontent.com/sfuhrm/schrumpf/master/src/main/resources/de/sfuhrm/schrumpf/ui/Logo-Entwurf-80x60.png "Schrumpf Logo")
 ========
+[![Java CI with Maven](https://github.com/sfuhrm/schrumpf/actions/workflows/maven-ref.yml/badge.svg)](https://github.com/sfuhrm/schrumpf/actions/workflows/maven-ref.yml)
 
 ![Schrumpf Screenshot](https://raw.githubusercontent.com/sfuhrm/schrumpf/master/image/Main-EN.png "Schrumpf main window screenshot")
 
