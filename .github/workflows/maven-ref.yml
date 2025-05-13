@@ -36,4 +36,4 @@ jobs:
         gpg-key: foobar
         gpg-passphrase: foobar
         input-artifact: build
-        output-artifact: build2
+        output-artifact: build3
