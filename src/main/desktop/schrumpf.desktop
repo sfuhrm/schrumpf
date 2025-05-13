@@ -11,4 +11,3 @@ Icon=/usr/lib/schrumpf/app/resources/schrumpf.png
 Terminal=false
 Categories=Graphics;2DGraphics;RasterGraphics;GTK;
 StartupNotify=true
-MimeType=image/bmp;image/gif;image/tiff;image/jpeg;image/png;
