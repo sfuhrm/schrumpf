@@ -34,15 +34,15 @@ jobs:
     - name: Download build
       uses: actions/download-artifact@v4.1.7
       with:
-        name: build
+        name: build_21
 
     - uses: sfuhrm/gpg-sign-action@main
       with:
         gpg-key: foobar
         gpg-passphrase: foobar
-        input-path: build
+        input-path: target
 
     - uses: actions/upload-artifact@v4
       with:
         name: build2
-        path: "build/**"
+        path: "target/**"
