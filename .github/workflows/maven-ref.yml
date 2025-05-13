@@ -31,7 +31,7 @@ jobs:
       contents: read
     runs-on: ubuntu-latest    
     steps:
-    - uses: sfuhrm/gpg-sign-action
+    - uses: sfuhrm/gpg-sign-action@main
       with:
         gpg-key: foobar
         gpg-passphrase: foobar
