@@ -25,3 +25,15 @@ jobs:
       java_version: "[ \"21\" ]"
       artifact_name: build
       artifact_path: target/*.jar
+  sign:
+    needs: call-workflow-passing-data
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: sfuhrm/gpg-sign-action
+      with:
+        gpg-key: foobar
+        gpg-passphrase: foobar
+        input-artifact: build
+        output-artifact: build2
