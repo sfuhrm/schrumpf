@@ -19,12 +19,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>    
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -74,6 +68,75 @@
             </plugin>
         </plugins>        
     </build>
+
+    <profiles>
+        <profile>
+        <id>release</id>
+        <build>
+            <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.7.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                <publishingServerId>central</publishingServerId>
+                <autoPublish>true</autoPublish>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.7</version>
+                <configuration>
+                <keyname>9C3D5D0E75C71CE338930BF073FA841FE7DCB91F</keyname>
+                </configuration>
+                <executions>
+                <execution>
+                    <id>sign-artifacts</id>
+                    <phase>verify</phase>
+                    <goals>
+                    <goal>sign</goal>
+                    </goals>
+                </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <goals>
+                    <goal>jar</goal>
+                    </goals>
+                </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.2</version>
+                <configuration>
+                <excludePackageNames>de.sfuhrm.foo</excludePackageNames>
+                <failOnError>false</failOnError>
+                </configuration>
+                <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                    <goal>jar</goal>
+                    </goals>
+                </execution>
+                </executions>
+            </plugin>
+            </plugins>
+        </build>
+        </profile>
+    </profiles>
+
+
     <dependencies>
         <dependency>
             <groupId>org.jdesktop</groupId>
