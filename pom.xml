@@ -5,12 +5,12 @@
     <artifactId>Schrumpf</artifactId>
     <name>Schrumpf</name>
     <description>Schrumpf image batch resizer</description>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.1.0</version>
     <url>https://github.com/sfuhrm/schrumpf</url>
     <scm>
         <url>git@github.com:sfuhrm/schrumpf.git</url>
         <connection>scm:git:git@github.com:sfuhrm/schrumpf.git</connection>
-        <tag>HEAD</tag>
+        <tag>v1.1.0</tag>
     </scm>
     <licenses>
         <license>
