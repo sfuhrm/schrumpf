@@ -36,12 +36,6 @@ jobs:
       with:
         name: build_21
 
-    - uses: sfuhrm/gpg-sign-action@main
-      with:
-        gpg-key: foobar
-        gpg-passphrase: foobar
-        input-path: target
-
     - uses: actions/upload-artifact@v4
       with:
         name: build2
